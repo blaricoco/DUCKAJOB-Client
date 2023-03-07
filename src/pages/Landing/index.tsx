@@ -8,7 +8,7 @@ const Landing = () => {
         alignItems: 'center',
         justifyContent: 'center',
         height: '100vh',
-        backgroundColor: 'blue',
+        backgroundColor: 'pink',
       }}>
       Landing
     </div>
