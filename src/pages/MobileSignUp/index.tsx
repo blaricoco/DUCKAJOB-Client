@@ -5,8 +5,10 @@ import React from 'react';
 import styles from './MobileSignUp.module.scss';
 
 import WebApp from '@twa-dev/sdk';
+import { useNavigate, useNavigation } from 'react-router-dom';
 
 const MobileSignUp = () => {
+  const router = useNavigate();
   const data = WebApp.initDataUnsafe?.user;
 
   const [tonConnectUI] = useTonConnectUI();
@@ -15,12 +17,23 @@ const MobileSignUp = () => {
 
   React.useEffect(() => {
     if (tonConnectUI.connected) {
-      console.log(tonConnectUI.wallet.account.address, data?.id);
-      setTmp({ wallet: tonConnectUI.wallet.account.address, user: data?.id });
+      handleAuth(tonConnectUI.wallet.account.address, data?.id);
     }
   }, [tonConnectUI.connected]);
 
-  const handleAuth = () => {};
+  const handleAuth = (wallet: string, id: any) => {
+    setTmp({ wallet, user: id || 'test' });
+    fetch('http://localhost:3001/users/auth', {
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ wallet, userId: id || 'test' }),
+    })
+      .then((res) => res.json())
+      .then((res) => router(res.redirectUrl));
+  };
 
   return (
     <div className={styles.wrapper}>

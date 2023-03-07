@@ -59,7 +59,7 @@ let githubUsername, githubRepo, botUsername;
 
   botUsername = getBot.data.result.username;
   const url = `https://${githubUsername}.github.io/${githubRepo}`;
-  const testUrl = 'https://ivanseagull.vercel.app';
+  const testUrl = 'https://hilarious-belekoy-1fa09d.netlify.app/register';
 
   console.log(`\n\nSetting bot ${botUsername} webapp url to ${url}`);
 
