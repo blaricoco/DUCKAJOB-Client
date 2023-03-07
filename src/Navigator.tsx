@@ -5,6 +5,7 @@ import CreateJob from './pages/CreateJob';
 import Job from './pages/Job';
 import JobLists from './pages/JobLists';
 import Landing from './pages/Landing';
+import MobileSignUp from './pages/MobileSignUp';
 import Registration from './pages/Registration';
 import UserProfile from './pages/UserProfile';
 
@@ -13,6 +14,7 @@ const Navigator = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/mobile-signup" element={<MobileSignUp />} />
         <Route path={`${path}/jobs`} element={<JobLists />} />
         <Route path={`${path}/jobs/:id`} element={<Job />} />
 

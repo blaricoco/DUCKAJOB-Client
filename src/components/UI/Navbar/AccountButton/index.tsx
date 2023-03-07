@@ -13,7 +13,7 @@ import WebApp from '@twa-dev/sdk';
 import { Link } from 'react-router-dom';
 import { useTonConnect } from '../../../../hooks/useTonConnect';
 
-import { TonConnect, toUserFriendlyAddress } from '@tonconnect/sdk';
+import { toUserFriendlyAddress } from '@tonconnect/sdk';
 
 function AccountButton() {
   const [tonConnectUI] = useTonConnectUI();

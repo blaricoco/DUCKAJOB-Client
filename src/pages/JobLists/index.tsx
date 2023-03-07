@@ -15,7 +15,7 @@ const JobLists = () => {
       <Navbar />
       <div className="container">
         <div className={styles.wrapper}>
-          <h2>{JSON.stringify(data)}</h2>
+          {/* <h2>{JSON.stringify(data)}</h2> */}
           <Filters />
           <div className={styles.list}>
             <JobItem />
