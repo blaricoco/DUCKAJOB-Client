@@ -3,12 +3,12 @@ import { ButtonProps } from '../buttonInterface';
 
 import styles from '../Buttons.module.scss';
 
-const SecondaryButton: React.FC<ButtonProps> = ({ text, onClick }) => {
+const SecondaryButton: React.FC<ButtonProps> = ({ text, onClick, disabled }) => {
   return (
-    <div onClick={onClick} className={styles.secondaryWrapper}>
+    <button onClick={onClick} className={styles.secondaryWrapper} disabled={disabled}>
       <img src="/icons/arrow-left.svg" />
       <p>{text}</p>
-    </div>
+    </button>
   );
 };
 

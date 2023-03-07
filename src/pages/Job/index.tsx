@@ -1,5 +1,7 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import Navbar from '../../components/UI/Navbar';
+import { getJobDetails } from '../../utils/jobs';
 import Applications from './Applications';
 
 import styles from './Job.module.scss';
@@ -17,6 +19,20 @@ const TagItem: React.FC<TagItemProps> = ({ tag }) => (
 );
 
 const Job = () => {
+  const { id } = useParams();
+
+  const [data, setData] = React.useState();
+  const [applications, setApplications] = React.useState();
+
+  React.useEffect(() => {
+    if (id) {
+      getJobDetails(id, (res: any) => {
+        setApplications(res.applications);
+        setData(res.job);
+      });
+    }
+  }, [id]);
+
   return (
     <>
       <Navbar />

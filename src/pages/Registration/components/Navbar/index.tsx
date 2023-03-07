@@ -16,7 +16,7 @@ const Navbar: React.FC<NavbarProps> = ({ totalSteps, currentStep }) => {
       <div className="container">
         <div className={styles.navbarContent}>
           <div className={styles.row}>
-            <p className={styles.title}>Create job</p>
+            <p className={styles.title}>Sign up</p>
             <img src="/icons/circle.svg" />
             <p className={styles.title}>{titles[currentStep]}</p>
           </div>

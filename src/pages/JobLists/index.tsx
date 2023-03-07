@@ -4,23 +4,36 @@ import Filters from './components/Filters';
 import JobItem from './components/JobItem';
 
 import styles from './JobLists.module.scss';
+import React from 'react';
+import { getJobs } from '../../utils/jobs';
 
-import WebApp from '@twa-dev/sdk';
+type Job = {
+  _id: string;
+  title: string;
+  description: string;
+  budget: number;
+  tags: any[];
+};
 
 const JobLists = () => {
-  const data = WebApp.initDataUnsafe?.user;
+  const [jobs, setJobs] = React.useState<Job[]>([]);
+
+  React.useEffect(() => {
+    getJobs((res: any) => {
+      setJobs(res);
+    });
+  }, []);
 
   return (
     <>
       <Navbar />
       <div className="container">
         <div className={styles.wrapper}>
-          {/* <h2>{JSON.stringify(data)}</h2> */}
           <Filters />
           <div className={styles.list}>
-            <JobItem />
-            <JobItem />
-            <JobItem />
+            {jobs.map((job) => {
+              return <JobItem {...job} key={job._id} />;
+            })}
           </div>
         </div>
       </div>

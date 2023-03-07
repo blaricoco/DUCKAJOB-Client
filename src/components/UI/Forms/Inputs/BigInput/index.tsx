@@ -3,7 +3,14 @@ import { InputProps } from '../inputInterface';
 
 import styles from '../Inputs.module.scss';
 
-const BigInput: React.FC<InputProps> = ({ title, desc, placeHolder, required = false }) => {
+const BigInput: React.FC<InputProps> = ({
+  title,
+  desc,
+  placeHolder,
+  required = false,
+  data,
+  setData,
+}) => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.titleCon}>
@@ -12,7 +19,12 @@ const BigInput: React.FC<InputProps> = ({ title, desc, placeHolder, required = f
       </div>
       {desc && <p className={styles.desc}>{desc}</p>}
 
-      <textarea className={styles.bigInput} placeholder={placeHolder} />
+      <textarea
+        value={data}
+        onChange={(e) => setData(e.target.value)}
+        className={styles.bigInput}
+        placeholder={placeHolder}
+      />
     </div>
   );
 };

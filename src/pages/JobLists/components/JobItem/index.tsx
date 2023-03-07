@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { getJobDetails } from '../../../../utils/jobs';
 
 import styles from './JobItem.module.scss';
 
@@ -15,26 +16,31 @@ const TagItem: React.FC<TagItemProps> = ({ tag }) => (
   </div>
 );
 
-const JobItem = () => {
+interface JobItemProps {
+  _id: string;
+  title: string;
+  description: string;
+  budget: number;
+}
+
+const JobItem: React.FC<JobItemProps> = ({ _id, title, description, budget }) => {
   const navigation = useNavigate();
+
   return (
-    <div onClick={() => navigation('/jobs/123')} className={styles.wrapper}>
+    <div onClick={() => navigation(`/jobs/${_id}`)} className={styles.wrapper}>
       <div className={styles.header}>
         <p className={styles.company}>
           <span>Microsoft</span>
           <img src="/icons/circle.svg" /> 2hr ago
         </p>
         <div className={styles.priceCon}>
-          <p className={styles.priceTxt}>$100</p>
+          <p className={styles.priceTxt}>${budget}</p>
         </div>
       </div>
 
       <div className={styles.body}>
-        <h3 className={styles.title}>Make a logo for Microsoft.</h3>
-        <p className={styles.description}>
-          Fusce quam leo, congue in libero sit amet, tincidunt pretium neque. Nullam hendrerit orci
-          at ornare dignissim...
-        </p>
+        <h3 className={styles.title}>{title}</h3>
+        <p className={styles.description}>{description}</p>
 
         <div className={styles.appliedCon}>
           <img src="/icons/user-check.svg" />

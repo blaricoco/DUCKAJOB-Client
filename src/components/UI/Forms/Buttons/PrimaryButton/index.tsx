@@ -3,12 +3,12 @@ import { ButtonProps } from '../buttonInterface';
 
 import styles from '../Buttons.module.scss';
 
-const PrimaryButton: React.FC<ButtonProps> = ({ text, onClick }) => {
+const PrimaryButton: React.FC<ButtonProps> = ({ text, onClick, disabled = false }) => {
   return (
-    <div onClick={onClick} className={styles.wrapper}>
+    <button onClick={onClick} disabled={disabled} className={styles.wrapper}>
       <p>{text}</p>
       <img src="/icons/arrow-right.svg" />
-    </div>
+    </button>
   );
 };
 

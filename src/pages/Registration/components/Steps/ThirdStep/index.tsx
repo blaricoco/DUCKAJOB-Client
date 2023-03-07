@@ -14,7 +14,6 @@ interface ThirdStepProps {
 const links = ['Github', 'Telegram', 'LinkedIn', 'Personal website', 'Behance', 'Instagram'];
 
 const ThirdStep: React.FC<ThirdStepProps> = ({ nextStep, prevStep }) => {
-  const navigation = useNavigate();
   return (
     <div>
       {links.map((link, index) => (
@@ -22,7 +21,7 @@ const ThirdStep: React.FC<ThirdStepProps> = ({ nextStep, prevStep }) => {
       ))}
       <div className={styles.buttonCon}>
         <SecondaryButton text="Back" onClick={prevStep} />
-        <PrimaryButton text="Finish" onClick={() => navigation('/jobs')} />
+        <PrimaryButton text="Finish" onClick={nextStep} />
       </div>
     </div>
   );

@@ -1,17 +1,26 @@
 .wrapper {
   padding: 12px 22px 12px 32px;
+  border: none;
+  cursor: pointer;
   background-color: #0088cc;
   color: #fff;
   border-radius: 48px;
   font-size: 16px;
   display: flex;
   align-items: center;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
   img {
     margin-left: 4px;
   }
 }
 
 .secondaryWrapper {
+  border: none;
+  cursor: pointer;
   padding: 12px 32px 12px 22px;
   background-color: #dcf3ff;
   color: #0088cc;
@@ -19,8 +28,12 @@
   font-size: 16px;
   display: flex;
   align-items: center;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
   img {
     margin-right: 4px;
-    fill: red;
   }
 }
