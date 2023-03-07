@@ -16,7 +16,7 @@ const MobileSignUp = () => {
   const [tmp, setTmp] = React.useState<any>();
 
   React.useEffect(() => {
-    if (tonConnectUI.connected) {
+    if (tonConnectUI.connected && tonConnectUI.wallet) {
       handleAuth(tonConnectUI.wallet.account.address, data?.id);
     }
   }, [tonConnectUI.connected]);
