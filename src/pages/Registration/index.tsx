@@ -9,6 +9,7 @@ import ThirdStep from './components/Steps/ThirdStep';
 
 import styles from './Registration.module.scss';
 import WebApp from '@twa-dev/sdk';
+import { apiUrl } from '../../utils/api';
 
 const Registration = () => {
   const navigation = useNavigate();
@@ -43,7 +44,7 @@ const Registration = () => {
       links,
     };
 
-    fetch('http://localhost:3001/users/register', {
+    fetch(`${apiUrl}users/register`, {
       method: 'POST',
 
       headers: {

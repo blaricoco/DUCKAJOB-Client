@@ -6,6 +6,7 @@ import styles from './MobileSignUp.module.scss';
 
 import WebApp from '@twa-dev/sdk';
 import { useNavigate, useNavigation } from 'react-router-dom';
+import { apiUrl } from '../../utils/api';
 
 const MobileSignUp = () => {
   const router = useNavigate();
@@ -23,7 +24,7 @@ const MobileSignUp = () => {
 
   const handleAuth = (wallet: string, id: any) => {
     setTmp({ wallet, user: id || 'test' });
-    fetch('http://localhost:3001/users/auth', {
+    fetch(`${apiUrl}/users/auth`, {
       method: 'POST',
 
       headers: {

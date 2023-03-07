@@ -1,5 +1,7 @@
+import { apiUrl } from '../api';
+
 export const getTags = async (query?: string, cb?: any) => {
-  fetch(`http://localhost:3001/tags?name=${query || ''}`)
+  fetch(`${apiUrl}/tags?name=${query || ''}`)
     .then((res) => res.json())
     .then((res) => cb(res));
 };
