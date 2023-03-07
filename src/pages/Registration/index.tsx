@@ -26,6 +26,7 @@ const Registration = () => {
   const [links, setLinks] = React.useState([]);
 
   const handleRegister = () => {
+    if (!tonConnectUI.wallet) return;
     const wallet = tonConnectUI.wallet.account.address;
     const telegramId = data?.id || 'TestId';
     console.log(`Handle register request with ${username},${bio} and so on`);
