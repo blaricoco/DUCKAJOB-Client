@@ -14,7 +14,9 @@ const Navbar = () => {
     <div className={styles.wrapper}>
       <div className="container">
         <div className={styles.content}>
-          <h3>Duck a job</h3>
+          <Link to="/jobs">
+            <h3>Duck a job</h3>
+          </Link>
           {/* <div className={styles.createBtn}>
             <p>Create a job</p>
           </div> */}
