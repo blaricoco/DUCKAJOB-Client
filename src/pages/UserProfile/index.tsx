@@ -7,12 +7,16 @@ import Skills from './components/Skills';
 
 import styles from './UserProfile.module.scss';
 
+import WebApp from '@twa-dev/sdk';
+
 const profile = () => {
+  const data = WebApp.initDataUnsafe?.user;
   return (
     <>
       <Navbar />
       <div className="container">
         <div className={styles.wrapper}>
+          <h2>{JSON.stringify(data)}</h2>
           <div className={styles.header}>
             <div className={styles.row}>
               <h2 className={styles.name}>Jennifer Vazquez</h2>
