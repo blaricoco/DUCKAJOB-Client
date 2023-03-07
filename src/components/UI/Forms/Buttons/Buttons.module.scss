@@ -1,0 +1,26 @@
+.wrapper {
+  padding: 12px 22px 12px 32px;
+  background-color: #0088cc;
+  color: #fff;
+  border-radius: 48px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  img {
+    margin-left: 4px;
+  }
+}
+
+.secondaryWrapper {
+  padding: 12px 32px 12px 22px;
+  background-color: #dcf3ff;
+  color: #0088cc;
+  border-radius: 48px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  img {
+    margin-right: 4px;
+    fill: red;
+  }
+}

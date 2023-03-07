@@ -1,0 +1,58 @@
+.wrapper {
+  border: 1px solid #eaeaea;
+  height: 166px;
+  width: 100%;
+  border-radius: 12px;
+  padding: 16px 20px;
+  position: relative;
+
+  .header {
+    display: flex;
+    align-items: center;
+    h5 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-right: 12px;
+    }
+  }
+
+  .desc {
+    font-size: 14px;
+    color: #8a8a8a;
+    margin-top: 8px;
+  }
+
+  .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 16px;
+    padding: 0 16px;
+
+    .offerCon {
+      border: 1px solid #eaeaea;
+      color: #6a6a6a;
+      padding: 8px 16px;
+      border-radius: 48px;
+      font-size: 16px;
+    }
+
+    .date {
+      font-size: 14px;
+      color: #8a8a8a;
+    }
+  }
+
+  .arrNextCon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

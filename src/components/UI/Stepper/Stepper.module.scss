@@ -1,0 +1,38 @@
+.stepper {
+  display: flex;
+  align-items: center;
+  .circle {
+    border: 1px solid #fff;
+    height: 14px;
+    width: 14px;
+    border-radius: 100%;
+    background-color: #dcf3ff;
+
+    z-index: 3;
+  }
+
+  .activeCircle {
+    border: 1px solid #fff;
+    height: 14px;
+    width: 14px;
+    border-radius: 100%;
+    background-color: #0088cc;
+    z-index: 3;
+  }
+
+  .line {
+    width: 50px;
+    height: 3px;
+    background-color: #dcf3ff;
+  }
+  .activeLine {
+    width: 50px;
+    height: 3px;
+    background-color: #0088cc;
+  }
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}

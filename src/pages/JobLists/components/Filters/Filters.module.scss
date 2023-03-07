@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+
+  .filterItem {
+    padding: 8px 16px;
+    border: 1px solid #eaeaea;
+    color: #6a6a6a;
+    border-radius: 48px;
+  }
+}

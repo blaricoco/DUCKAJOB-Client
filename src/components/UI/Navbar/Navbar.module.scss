@@ -1,0 +1,30 @@
+.wrapper {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #eaeaea;
+
+  -webkit-box-shadow: 0 10px 24px 1px #0000001a;
+  -moz-box-shadow: 0 10px 24px 1px #0000001a;
+  box-shadow: 0 10px 24px 1px #0000001a;
+
+  .content {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .createBtn {
+      background-color: #dcf3ff;
+      color: #0088cc;
+      padding: 10px 16px;
+      border-radius: 48px;
+    }
+  }
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}

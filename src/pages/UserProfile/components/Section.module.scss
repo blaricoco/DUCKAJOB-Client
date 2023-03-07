@@ -1,0 +1,113 @@
+.wrapper {
+  margin-top: 30px;
+  .header {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: 16px;
+      margin-right: 6px;
+    }
+    .title {
+      font-size: 14px;
+      color: #6a6a6a;
+      height: 16px;
+      padding-top: 1px;
+    }
+  }
+}
+
+.skillsContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 11px;
+
+  .itemWrapper {
+    border: 1px solid #eaeaea;
+    border-radius: 48px;
+    padding: 8px 16px;
+    color: #6a6a6a;
+  }
+}
+
+.linksContent {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 11px;
+
+  .itemWrapper {
+    border: 1px solid #eaeaea;
+    border-radius: 48px;
+    padding: 8px 16px;
+    color: #6a6a6a;
+    display: flex;
+    align-items: center;
+    img {
+      margin-right: 4px;
+    }
+  }
+}
+
+.reviewsContent {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 12px;
+  padding-bottom: 20px;
+  .itemWrapper {
+    height: 155px;
+    border: 1px solid #eaeaea;
+    background-color: #fff;
+    width: 100%;
+    border-radius: 12px;
+    padding: 16px 20px;
+    position: relative;
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .name {
+        font-size: 16px;
+      }
+    }
+    .review {
+      color: #8a8a8a;
+      font-size: 14px;
+      margin-top: 6px;
+      max-width: 250px;
+    }
+
+    .footer {
+      right: 20px;
+      left: 20px;
+      position: absolute;
+      bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .left {
+        display: flex;
+        align-items: center;
+
+        .jobTitle {
+          margin-left: 6px;
+          padding-top: 2px;
+          font-size: 14px;
+          color: #8a8a8a;
+        }
+      }
+      .date {
+        font-size: 14px;
+        color: #8a8a8a;
+      }
+    }
+  }
+}

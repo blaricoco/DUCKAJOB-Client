@@ -1,0 +1,46 @@
+.wrapper {
+  margin-bottom: 20px;
+
+  .titleCon {
+    display: flex;
+    align-items: center;
+
+    h5 {
+      color: #212529;
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    span {
+      color: #f03e3e;
+      font-weight: 600;
+      font-size: 16px;
+      margin-left: 2px;
+    }
+  }
+
+  .desc {
+    font-size: 14px;
+    color: #868e96;
+    margin-top: 2px;
+  }
+
+  input,
+  textarea {
+    margin-top: 6px;
+    outline: none;
+    border: 1px solid #ced4da;
+    width: 100%;
+    padding: 8px 14px;
+    border-radius: 8px;
+    transition: border 0.1s ease-in-out;
+
+    &:focus {
+      border: 1px solid #0088cc;
+    }
+  }
+  .bigInput {
+    resize: none;
+    height: 120px;
+  }
+}

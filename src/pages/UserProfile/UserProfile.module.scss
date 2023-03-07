@@ -1,0 +1,36 @@
+.wrapper {
+  padding-top: 30px;
+
+  .header {
+    .row {
+      display: flex;
+      align-items: center;
+
+      .name {
+        font-size: 20px;
+        margin-right: 12px;
+      }
+    }
+    .desc {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #8a8a8a;
+      max-width: 300px;
+    }
+  }
+
+  .msgButton {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0088cc;
+    height: 48px;
+    border: 1px solid #0088cc;
+    border-radius: 48px;
+
+    img {
+      margin-left: 8px;
+    }
+  }
+}

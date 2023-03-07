@@ -1,0 +1,97 @@
+.wrapper {
+  padding-top: 20px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .company {
+      color: #8a8a8a;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      span {
+        text-decoration: underline;
+      }
+    }
+
+    .priceCon {
+      background-color: #dcf3ff;
+      border-radius: 48px;
+      padding: 8px 16px;
+      .priceTxt {
+        font-weight: bold;
+        font-size: 16px;
+        color: #0088cc;
+      }
+    }
+  }
+
+  .body {
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 15px;
+    }
+    .description {
+      font-size: 14px;
+      color: #8a8a8a;
+      margin-top: 4px;
+    }
+    .appliedCon {
+      margin-top: 18px;
+      font-size: 14px;
+      color: #6a6a6a;
+      margin-bottom: 22px;
+      display: flex;
+      align-items: center;
+      p {
+        padding-top: 2px;
+        margin-left: 4px;
+      }
+    }
+  }
+
+  .tagsCon {
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .tagWrapper {
+      color: #6a6a6a;
+      border: 1px solid #eaeaea;
+      background-color: #fbfbfb;
+      padding: 8px 16px;
+      border-radius: 48px;
+      white-space: nowrap;
+
+      &:last-of-type {
+        margin-right: 22px;
+      }
+    }
+  }
+
+  .applyButton {
+    margin-top: 34px;
+    width: 100%;
+    background-color: #0088cc;
+    color: #fff;
+    height: 48px;
+    border-radius: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      margin-left: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      margin-right: 12px;
+    }
+  }
+}
