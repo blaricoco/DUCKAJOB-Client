@@ -1,1 +1,1 @@
-export const apiUrl = 'http://3.8.33.154';
+export const apiUrl = 'https://www.api.duckajob.com';
