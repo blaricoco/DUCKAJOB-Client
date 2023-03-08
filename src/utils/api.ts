@@ -1,1 +1,1 @@
-export const apiUrl = 'http://www.api.duckajob.com';
+export const apiUrl = 'https://www.api.duckajob.com';
