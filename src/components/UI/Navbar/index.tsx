@@ -15,7 +15,8 @@ const Navbar = () => {
       <div className="container">
         <div className={styles.content}>
           <Link to="/jobs">
-            <h3>Duck a job</h3>
+            {/* <h3>Duck a job</h3> */}
+            <img className={styles.logo} src="/img/logodark.png" />
           </Link>
           {/* <div className={styles.createBtn}>
             <p>Create a job</p>

@@ -35,9 +35,9 @@ const Selection: React.FC<SelectionProps> = ({ title }) => {
   const [items, setItems] = React.useState<Item[]>([]);
   const [inputName, setInputName] = React.useState('');
 
-  React.useEffect(() => {
-    getTags(inputName, (res: any) => setItems(res.data));
-  }, [inputName]);
+  // React.useEffect(() => {
+  //   getTags(inputName, (res: any) => setItems(res.data));
+  // }, [inputName]);
 
   return (
     <div className={styles.wrapper}>

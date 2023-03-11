@@ -1,0 +1,67 @@
+.wrapper {
+  height: 200vh;
+
+  .intro {
+    // background: linear-gradient(#fff, #dcf3ff);
+
+    .introInner {
+      height: 100vh;
+      margin-top: -70px;
+      display: flex;
+      //   padding-top: 20vh;
+      align-items: center;
+      justify-content: space-between;
+
+      .left {
+        width: 45%;
+      }
+      .right {
+        width: 40%;
+      }
+
+      .title {
+        font-size: 64px;
+        font-weight: bold;
+      }
+      .desc {
+        font-size: 20px;
+        margin-top: 12px;
+      }
+
+      .circle {
+        width: 350px;
+        height: 350px;
+        background-color: #0088cc;
+        border-radius: 100%;
+      }
+    }
+  }
+
+  .numbers {
+    background-color: #dcf3ff;
+    width: 100%;
+    .numberInner {
+      height: 90px;
+      width: 100%;
+      color: #0088cc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15%;
+
+      .numberEl {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h3 {
+          font-size: 36px;
+          font-weight: bold;
+        }
+        p {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+}

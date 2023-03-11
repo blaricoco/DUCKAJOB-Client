@@ -24,14 +24,14 @@ const Job = () => {
   const [data, setData] = React.useState();
   const [applications, setApplications] = React.useState();
 
-  React.useEffect(() => {
-    if (id) {
-      getJobDetails(id, (res: any) => {
-        setApplications(res.applications);
-        setData(res.job);
-      });
-    }
-  }, [id]);
+  // React.useEffect(() => {
+  //   if (id) {
+  //     getJobDetails(id, (res: any) => {
+  //       setApplications(res.applications);
+  //       setData(res.job);
+  //     });
+  //   }
+  // }, [id]);
 
   return (
     <>

@@ -12,16 +12,47 @@ type Job = {
   title: string;
   description: string;
   budget: number;
-  tags: any[];
+  tags?: any[];
 };
 
+const test: Job[] = [
+  {
+    _id: '123',
+    title: 'Make a logo',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae risus a mauris lacinia bibendum.',
+    budget: 300,
+  },
+  {
+    _id: '123',
+    title: 'Make a website on wordpress',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae risus a mauris lacinia bibendum.',
+    budget: 300,
+  },
+  {
+    _id: '125',
+    title: 'Can you teach me tact',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae risus a mauris lacinia bibendum.',
+    budget: 300,
+  },
+  {
+    _id: '130',
+    title: 'Func developer',
+    description:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae risus a mauris lacinia bibendum.',
+    budget: 300,
+  },
+];
+
 const JobLists = () => {
-  const [jobs, setJobs] = React.useState<Job[]>([]);
+  const [jobs, setJobs] = React.useState<Job[]>(test);
 
   React.useEffect(() => {
-    getJobs((res: any) => {
-      setJobs(res);
-    });
+    // getJobs((res: any) => {
+    //   setJobs(res);
+    // });
   }, []);
 
   return (
