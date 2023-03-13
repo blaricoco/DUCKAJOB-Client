@@ -8,6 +8,8 @@ import Skills from './components/Skills';
 import styles from './UserProfile.module.scss';
 
 import WebApp from '@twa-dev/sdk';
+import { Tabs } from '@mantine/core';
+import ProfileTab from './components/ProfileTab';
 
 const profile = () => {
   const data = WebApp.initDataUnsafe?.user;
@@ -31,9 +33,8 @@ const profile = () => {
             <p>Message</p>
             <img src="/icons/msg.svg" />
           </div>
-          <Skills />
-          <Links />
-          <Reviews />
+
+          <ProfileTab />
         </div>
       </div>
     </>

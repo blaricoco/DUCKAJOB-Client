@@ -1,0 +1,44 @@
+.wrapper {
+  .tabs {
+    margin-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: scroll;
+
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .el {
+      display: flex;
+      align-items: center;
+      padding: 4px 12px;
+      font-size: 14px;
+      color: #6a6a6a;
+      gap: 8px;
+
+      border-bottom: 3px solid #d7d7d7;
+      transition: border-bottom 0.1s ease-in-out;
+    }
+
+    .activeEl {
+      padding: 4px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #6a6a6a;
+
+      border-bottom: 3px solid #5588da;
+      transition: border-bottom 0.1s ease-in-out;
+    }
+  }
+}
+
+.body {
+  margin-bottom: 20px;
+}
