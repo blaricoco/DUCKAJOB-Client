@@ -16,7 +16,7 @@ const profile = () => {
       <Navbar />
       <div className="container">
         <div className={styles.wrapper}>
-          <h2>{JSON.stringify(data)}</h2>
+          {/* <h2>{JSON.stringify(data)}</h2> */}
           <div className={styles.header}>
             <div className={styles.row}>
               <h2 className={styles.name}>Jennifer Vazquez</h2>

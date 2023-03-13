@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, useNavigation } from 'react-router-dom';
 import Navbar from './components/UI/Navbar';
+import Contract from './pages/Contract';
 import CreateJob from './pages/CreateJob';
 import Job from './pages/Job';
 import JobLists from './pages/JobLists';
@@ -17,6 +18,8 @@ const Navigator = () => {
         <Route path="/mobile-signup" element={<MobileSignUp />} />
         <Route path={`${path}/jobs`} element={<JobLists />} />
         <Route path={`${path}/jobs/:id`} element={<Job />} />
+
+        <Route path={`${path}/contract`} element={<Contract />} />
 
         <Route path={`${path}/profile`} element={<UserProfile />} />
         <Route path={`${path}/create-job`} element={<CreateJob />} />
