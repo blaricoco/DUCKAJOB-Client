@@ -21,17 +21,18 @@ const TagItem: React.FC<TagItemProps> = ({ tag }) => (
 const Job = () => {
   const { id } = useParams();
 
-  const [data, setData] = React.useState();
-  const [applications, setApplications] = React.useState();
+  const [data, setData] = React.useState<any>({});
+  const [applications, setApplications] = React.useState<any[]>();
 
-  // React.useEffect(() => {
-  //   if (id) {
-  //     getJobDetails(id, (res: any) => {
-  //       setApplications(res.applications);
-  //       setData(res.job);
-  //     });
-  //   }
-  // }, [id]);
+  React.useEffect(() => {
+    if (id) {
+      getJobDetails(id, (res: any) => {
+        // console.log(res.applications);
+        setApplications(res.applications);
+        setData(res.job);
+      });
+    }
+  }, [id]);
 
   return (
     <>
@@ -44,28 +45,24 @@ const Job = () => {
               <img src="/icons/circle.svg" /> 2hr ago
             </p>
             <div className={styles.priceCon}>
-              <p className={styles.priceTxt}>$1000</p>
+              <p className={styles.priceTxt}>${data?.budget}</p>
             </div>
           </div>
           <div className={styles.body}>
-            <h3 className={styles.title}>Make a logo for Microsoft.</h3>
-            <p className={styles.description}>
-              Fusce quam leo, congue in libero sit amet, tincidunt pretium neque. Nullam hendrerit
-              orci at ornare dignissim fusce quam leo, congue in libero sit amet, tincidunt pretium
-              neque. Nullam hendrerit orci at ornare dignissim
-            </p>
+            <h3 className={styles.title}>{data?.title}</h3>
+            <p className={styles.description}>{data?.description}</p>
             <div className={styles.appliedCon}>
               <img src="/icons/user-check.svg" />
-              <p>14 Applied</p>
+              <p>{applications?.length} Applied</p>
             </div>
           </div>
           <div className={styles.tagsCon}>
-            {tags.map((tag, index) => (
+            {tags?.map((tag, index) => (
               <TagItem tag={tag} key={index} />
             ))}
           </div>
 
-          <Applications />
+          <Applications applications={applications} />
 
           {/* <div className={styles.applyButton}>
             <p>Apply</p>

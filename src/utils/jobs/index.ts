@@ -3,13 +3,12 @@ import { apiUrl } from '../api';
 export const getJobs = async (cb?: any) => {
   fetch(`${apiUrl}/jobs`)
     .then((res) => {
-      console.log(res);
-      alert(`isOk:${res.ok}, url:${res.url}, redirected:${res.redirected}, type:${res.type}`);
+      // console.log(res);
+      // alert(`isOk:${res.ok}, url:${res.url}, redirected:${res.redirected}, type:${res.type}`);
 
       return res.json();
     })
     .then((res) => {
-      alert(JSON.stringify(res));
       cb ? cb(res.data) : console.log(res.data);
     });
 };
