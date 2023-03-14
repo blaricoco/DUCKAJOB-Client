@@ -30,26 +30,30 @@ const profile = () => {
     <>
       <Navbar />
       <div className="container">
-        <div className={styles.wrapper}>
-          {/* <h2>{JSON.stringify(data)}</h2> */}
-          <div className={styles.header}>
-            <div className={styles.row}>
-              <h2 className={styles.name}>{userData.username}</h2>
-              <Rating />
+        {userData ? (
+          <div className={styles.wrapper}>
+            {/* <h2>{JSON.stringify(data)}</h2> */}
+            <div className={styles.header}>
+              <div className={styles.row}>
+                <h2 className={styles.name}>{userData.username}</h2>
+                <Rating />
+              </div>
+              <p className={styles.desc}>
+                {/* UI/UX Designer, Entrepreneur I help companies build great products. */}
+                {userData.bio}
+              </p>
             </div>
-            <p className={styles.desc}>
-              {/* UI/UX Designer, Entrepreneur I help companies build great products. */}
-              {userData.bio}
-            </p>
-          </div>
 
-          <div className={styles.msgButton}>
-            <p>Message</p>
-            <img src="/icons/msg.svg" />
-          </div>
+            <div className={styles.msgButton}>
+              <p>Message</p>
+              <img src="/icons/msg.svg" />
+            </div>
 
-          <ProfileTab />
-        </div>
+            <ProfileTab />
+          </div>
+        ) : (
+          <h3>No such a user</h3>
+        )}
       </div>
     </>
   );
