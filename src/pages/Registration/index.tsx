@@ -9,7 +9,6 @@ import ThirdStep from './components/Steps/ThirdStep';
 
 import styles from './Registration.module.scss';
 import WebApp from '@twa-dev/sdk';
-import { apiUrl } from '../../utils/api';
 import { registerUser } from '../../utils/auth';
 
 const Registration = () => {
@@ -31,7 +30,6 @@ const Registration = () => {
     if (!tonConnectUI.wallet) return;
     const wallet = tonConnectUI.wallet.account.address;
 
-    // return;
     const reqBody = {
       wallet: wallet,
       username,
@@ -41,18 +39,6 @@ const Registration = () => {
     };
 
     registerUser(reqBody, (res) => router('/jobs'));
-
-    // fetch(`${apiUrl}users/register`, {
-    //   method: 'POST',
-
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(reqBody),
-    // })
-    //   .then((res) => res.json())
-    //   .then((res) => console.log(res));
-    // navigation('/jobs');
   };
 
   return (

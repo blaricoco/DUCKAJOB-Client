@@ -6,7 +6,6 @@ import styles from './MobileSignUp.module.scss';
 
 import WebApp from '@twa-dev/sdk';
 import { useNavigate, useNavigation } from 'react-router-dom';
-import { apiUrl } from '../../utils/api';
 import { authUser } from '../../utils/auth';
 
 const MobileSignUp = () => {
