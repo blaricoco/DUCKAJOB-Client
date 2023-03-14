@@ -18,3 +18,15 @@ export const getJobDetails = async (jobId: string, cb?: any) => {
     .then((res) => res.json())
     .then((res) => (cb ? cb(res) : console.log(res)));
 };
+
+export const createJob = async (data: any, cb = (res: any) => console.log(res)) => {
+  fetch(`${apiUrl}/jobs/create`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then((res) => res.json())
+    .then((res) => cb(res));
+};
