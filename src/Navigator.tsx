@@ -21,7 +21,7 @@ const Navigator = () => {
 
         <Route path={`${path}/contract`} element={<Contract />} />
 
-        <Route path={`${path}/profile`} element={<UserProfile />} />
+        <Route path={`${path}/user/:id`} element={<UserProfile />} />
         <Route path={`${path}/create-job`} element={<CreateJob />} />
         <Route path={`${path}/register`} element={<Registration />} />
 
