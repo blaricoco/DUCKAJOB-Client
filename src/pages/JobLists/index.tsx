@@ -13,46 +13,16 @@ type Job = {
   description: string;
   budget: number;
   tags?: any[];
+  applications?: any[];
 };
 
-const test: Job[] = [
-  {
-    _id: '123',
-    title: 'Make a logo',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae risus a mauris lacinia bibendum.',
-    budget: 300,
-  },
-  {
-    _id: '123',
-    title: 'Make a website on wordpress',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae risus a mauris lacinia bibendum.',
-    budget: 300,
-  },
-  {
-    _id: '125',
-    title: 'Can you teach me tact',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae risus a mauris lacinia bibendum.',
-    budget: 300,
-  },
-  {
-    _id: '130',
-    title: 'Func developer',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae risus a mauris lacinia bibendum.',
-    budget: 300,
-  },
-];
-
 const JobLists = () => {
-  const [jobs, setJobs] = React.useState<Job[]>(test);
+  const [jobs, setJobs] = React.useState<Job[]>([]);
 
   React.useEffect(() => {
-    // getJobs((res: any) => {
-    //   setJobs(res);
-    // });
+    getJobs((res: any) => {
+      setJobs(res);
+    });
   }, []);
 
   return (
@@ -63,7 +33,7 @@ const JobLists = () => {
           <Filters />
           <div className={styles.list}>
             {/* <JobItem title="Kill me" _id={'123'} description="qewfrvsdbghnjm" budget={228} /> */}
-            {jobs.map((job) => {
+            {jobs?.map((job) => {
               return <JobItem {...job} key={job._id} />;
             })}
           </div>

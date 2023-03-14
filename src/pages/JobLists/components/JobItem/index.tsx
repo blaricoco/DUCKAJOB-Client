@@ -21,10 +21,12 @@ interface JobItemProps {
   title: string;
   description: string;
   budget: number;
+  applications?: any[];
 }
 
-const JobItem: React.FC<JobItemProps> = ({ _id, title, description, budget }) => {
+const JobItem: React.FC<JobItemProps> = ({ _id, title, description, budget, applications }) => {
   const navigation = useNavigate();
+  // console.log(applications);
 
   return (
     <div onClick={() => navigation(`/jobs/${_id}`)} className={styles.wrapper}>
@@ -44,7 +46,7 @@ const JobItem: React.FC<JobItemProps> = ({ _id, title, description, budget }) =>
 
         <div className={styles.appliedCon}>
           <img src="/icons/user-check.svg" />
-          <p>14 Applied</p>
+          <p>{applications ? applications?.length : 0} Applied</p>
         </div>
         <div className={styles.line} />
       </div>

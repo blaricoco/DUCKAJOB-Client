@@ -1,6 +1,7 @@
 import { Stepper } from '@mantine/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { createJob } from '../../utils/jobs';
 import FinishedStep from './components/FinishedStep';
 
 import FirstStep from './components/FirstStep';
@@ -14,17 +15,41 @@ const CreateJob = () => {
   const totalSteps = 2;
   const nextStep = () => setActive((current: number) => current + 1);
   const prevStep = () => setActive((current: number) => current - 1);
+
+  const [title, setTitle] = React.useState('');
+  const [description, setDescription] = React.useState('');
+  const [budget, setBudget] = React.useState('');
+  const [tags, setTags] = React.useState<any[]>([]);
+
+  const [jobUrl, setJobUrl] = React.useState('');
+
+  const handleCreateJob = (setIsLoading: any) => {
+    const reqBody = {
+      title,
+      description,
+      budget,
+      tags,
+    };
+    createJob(reqBody, (res) => {
+      setIsLoading(false);
+      res.success && setJobUrl(res.redirectUrl);
+    });
+  };
+
   return (
     <div className={styles.wrapper}>
       <Navbar totalSteps={totalSteps} currentStep={active} />
       <div className="container">
         <div className={styles.body}>
           {active === 0 ? (
-            <FirstStep nextStep={nextStep} />
+            <FirstStep
+              formData={{ title, setTitle, description, setDescription, budget, setBudget }}
+              nextStep={nextStep}
+            />
           ) : active === 1 ? (
             <SecondStep nextStep={nextStep} prevStep={prevStep} />
           ) : (
-            <FinishedStep />
+            <FinishedStep jobUrl={jobUrl} handleCreateJob={handleCreateJob} />
           )}
         </div>
       </div>

@@ -9,10 +9,10 @@ import ThirdStep from './components/Steps/ThirdStep';
 
 import styles from './Registration.module.scss';
 import WebApp from '@twa-dev/sdk';
-import { apiUrl } from '../../utils/api';
+import { registerUser } from '../../utils/auth';
 
 const Registration = () => {
-  const navigation = useNavigate();
+  const router = useNavigate();
   const [tonConnectUI] = useTonConnectUI();
   const data = WebApp.initDataUnsafe?.user;
 
@@ -29,32 +29,16 @@ const Registration = () => {
   const handleRegister = () => {
     if (!tonConnectUI.wallet) return;
     const wallet = tonConnectUI.wallet.account.address;
-    const telegramId = data?.id || 'TestId';
-    console.log(`Handle register request with ${username},${bio} and so on`);
-    console.log(`WALLET: ${wallet}`);
-    console.log(`TELEGRAMID: ${telegramId}`);
 
-    // return;
     const reqBody = {
       wallet: wallet,
-      userId: telegramId,
       username,
       bio,
       skills,
       links,
     };
 
-    fetch(`${apiUrl}users/register`, {
-      method: 'POST',
-
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(reqBody),
-    })
-      .then((res) => res.json())
-      .then((res) => console.log(res));
-    // navigation('/jobs');
+    registerUser(reqBody, (res) => router('/jobs'));
   };
 
   return (
