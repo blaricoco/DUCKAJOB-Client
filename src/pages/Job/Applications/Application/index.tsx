@@ -4,17 +4,16 @@ import Rating from '../../../../components/UI/Rating';
 
 import styles from './Application.module.scss';
 
-const Application = () => {
+const Application = ({ application }: any) => {
+  console.log(application);
   const navigation = useNavigate();
   return (
-    <div onClick={() => navigation('/profile')} className={styles.wrapper}>
+    <div onClick={() => navigation(`/user/${application.userId._id}`)} className={styles.wrapper}>
       <div className={styles.header}>
-        <h5>Jennifer Vazquez</h5>
+        <h5>{application.userId.username}</h5>
         <Rating />
       </div>
-      <p className={styles.desc}>
-        UI/UX Designer, Entrepreneur I help companies build great products.
-      </p>
+      <p className={styles.desc}>{application.userId.bio}</p>
       <div className={styles.footer}>
         <div className={styles.offerCon}>
           <p>Offer: $1200</p>
