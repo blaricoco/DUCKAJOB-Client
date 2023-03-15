@@ -1,4 +1,5 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/authContext';
 import { getUserSkills } from '../../../utils/user';
 
@@ -16,13 +17,15 @@ const Skill: React.FC<SkillProps> = ({ skill }) => (
 );
 
 const Skills = () => {
+  const { id } = useParams();
+
   const { user } = React.useContext(AuthContext);
   const [skills, setSkills] = React.useState([]);
 
   React.useEffect(() => {
     // console.log('Uer', user);
-    user._id && getUserSkills(user._id, (res) => setSkills(res.data));
-  }, [user]);
+    id && getUserSkills(id, (res) => setSkills(res.data));
+  }, [id]);
 
   return (
     <div className={styles.wrapper}>
