@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import Navbar from '../../components/UI/Navbar';
 import { AuthContext } from '../../contexts/authContext';
 import { applyForJob } from '../../utils/application';
+import { formatDate } from '../../utils/dateFormat';
 import { getJobDetails } from '../../utils/jobs';
 import Applications from './Applications';
 import ApplyButton from './ApplyButton';
@@ -48,7 +49,8 @@ const Job = () => {
               <Link to={`/user/${data.owner?._id}`}>
                 <span>{data.owner?.username}</span>
               </Link>
-              <img src="/icons/circle.svg" /> 2hr ago
+              <img src="/icons/circle.svg" />{' '}
+              {data?.createdAt && formatDate(new Date(data?.createdAt))}
             </p>
             <div className={styles.priceCon}>
               <p className={styles.priceTxt}>${data?.budget}</p>
