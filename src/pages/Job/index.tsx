@@ -1,8 +1,11 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Navbar from '../../components/UI/Navbar';
+import { AuthContext } from '../../contexts/authContext';
+import { applyForJob } from '../../utils/application';
 import { getJobDetails } from '../../utils/jobs';
 import Applications from './Applications';
+import ApplyButton from './ApplyButton';
 
 import styles from './Job.module.scss';
 
@@ -20,6 +23,7 @@ const TagItem: React.FC<TagItemProps> = ({ tag }) => (
 
 const Job = () => {
   const { id } = useParams();
+  const { user } = React.useContext(AuthContext);
 
   const [data, setData] = React.useState<any>({});
   const [applications, setApplications] = React.useState<any[]>();
@@ -27,7 +31,7 @@ const Job = () => {
   React.useEffect(() => {
     if (id) {
       getJobDetails(id, (res: any) => {
-        // console.log(res.applications);
+        // console.log(res.job);
         setApplications(res.applications);
         setData(res.job);
       });
@@ -41,7 +45,9 @@ const Job = () => {
         <div className={styles.wrapper}>
           <div className={styles.header}>
             <p className={styles.company}>
-              <span>Microsoft</span>
+              <Link to={`/user/${data.owner?._id}`}>
+                <span>{data.owner?.username}</span>
+              </Link>
               <img src="/icons/circle.svg" /> 2hr ago
             </p>
             <div className={styles.priceCon}>
@@ -61,13 +67,16 @@ const Job = () => {
               <TagItem tag={tag} key={index} />
             ))}
           </div>
-
-          <Applications applications={applications} />
-
-          {/* <div className={styles.applyButton}>
-            <p>Apply</p>
-            <img src="/icons/user-check-white.svg" />
-          </div> */}
+          {/* check if its my job */}
+          {data.owner ? (
+            data.owner._id === user._id ? (
+              <Applications applications={applications} />
+            ) : (
+              <ApplyButton data={{ jobId: id, userId: user._id }} />
+            )
+          ) : (
+            <h2>Loading</h2>
+          )}
         </div>
       </div>
     </>

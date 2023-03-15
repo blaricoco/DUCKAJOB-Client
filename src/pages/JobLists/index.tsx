@@ -14,6 +14,7 @@ type Job = {
   budget: number;
   tags?: any[];
   applications?: any[];
+  owner: any;
 };
 
 const JobLists = () => {

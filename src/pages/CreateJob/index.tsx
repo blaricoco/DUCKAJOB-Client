@@ -1,6 +1,7 @@
 import { Stepper } from '@mantine/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/authContext';
 import { createJob } from '../../utils/jobs';
 import FinishedStep from './components/FinishedStep';
 
@@ -11,6 +12,8 @@ import SecondStep from './components/SecondStep';
 import styles from './CreateJob.module.scss';
 
 const CreateJob = () => {
+  const { user } = React.useContext(AuthContext);
+
   const [active, setActive] = React.useState(0);
   const totalSteps = 2;
   const nextStep = () => setActive((current: number) => current + 1);
@@ -25,6 +28,7 @@ const CreateJob = () => {
 
   const handleCreateJob = (setIsLoading: any) => {
     const reqBody = {
+      owner: user._id,
       title,
       description,
       budget,
