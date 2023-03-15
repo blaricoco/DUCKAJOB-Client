@@ -26,6 +26,10 @@ const CreateJob = () => {
 
   const [jobUrl, setJobUrl] = React.useState('');
 
+  React.useEffect(() => {
+    console.log('tags ', tags);
+  }, [tags]);
+
   const handleCreateJob = (setIsLoading: any) => {
     const reqBody = {
       owner: user._id,
@@ -51,7 +55,7 @@ const CreateJob = () => {
               nextStep={nextStep}
             />
           ) : active === 1 ? (
-            <SecondStep nextStep={nextStep} prevStep={prevStep} />
+            <SecondStep formData={{ tags, setTags }} nextStep={nextStep} prevStep={prevStep} />
           ) : (
             <FinishedStep jobUrl={jobUrl} handleCreateJob={handleCreateJob} />
           )}

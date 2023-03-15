@@ -24,20 +24,34 @@ import SelectionItem from './SelectionItem';
 
 interface SelectionProps {
   title: string;
+  data: any;
+  setData: any;
 }
 
 type Item = {
-  id: any;
+  _id: any;
   name: string;
 };
 
-const Selection: React.FC<SelectionProps> = ({ title }) => {
+const Selection: React.FC<SelectionProps> = ({ title, data, setData }) => {
   const [items, setItems] = React.useState<Item[]>([]);
   const [inputName, setInputName] = React.useState('');
 
-  // React.useEffect(() => {
-  //   getTags(inputName, (res: any) => setItems(res.data));
-  // }, [inputName]);
+  React.useEffect(() => {
+    getTags(inputName, (res: any) => setItems(res.data));
+  }, [inputName]);
+
+  const handleClicking = (item: string) => {
+    if (data.includes(item)) {
+      // Remove item from target array
+      // targetArray = targetArray.filter(i => i !== item);
+      setData((prev: any) => prev.filter((i: string) => i !== item));
+    } else {
+      // Add item to target array
+      // targetArray.push(item);
+      setData((prev: any) => [...prev, item]);
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -58,7 +72,9 @@ const Selection: React.FC<SelectionProps> = ({ title }) => {
 
       <div className={styles.scrollable}>
         {items?.map((item, index) => (
-          <SelectionItem item={item?.name} key={index} />
+          <div key={index} onClick={() => handleClicking(item._id)}>
+            <SelectionItem item={item?.name} />
+          </div>
         ))}
       </div>
     </div>

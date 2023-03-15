@@ -5,10 +5,47 @@
 
   .checkbox {
     margin-right: 12px;
+    background-color: red;
   }
 
   p {
     font-size: 16px;
     color: #090a0a;
   }
+}
+
+.checkbox {
+  position: relative;
+  cursor: pointer;
+}
+.checkbox:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 0;
+  left: 0;
+  border: 1px solid #ced4da;
+  border-radius: 3px;
+  background-color: #fff;
+}
+.checkbox:checked:before {
+  background-color: #0088cc;
+}
+
+.checkbox:checked:after {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 10px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg) scale(0.8);
+  position: absolute;
+
+  top: 2px;
+  left: 5px;
 }

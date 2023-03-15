@@ -9,12 +9,14 @@ import Selection from '../../../../components/UI/Forms/Selection';
 interface SecondStepProps {
   nextStep: any;
   prevStep: any;
+  formData: any;
 }
 
-const SecondStep: React.FC<SecondStepProps> = ({ nextStep, prevStep }) => {
+const SecondStep: React.FC<SecondStepProps> = ({ nextStep, prevStep, formData }) => {
+  const { tags, setTags } = formData;
   return (
     <div>
-      <Selection title="Tags" />
+      <Selection data={tags} setData={setTags} title="Tags" />
       <div className={styles.buttonCon}>
         <SecondaryButton text="Back" onClick={prevStep} />
         <PrimaryButton text="Submit" onClick={nextStep} />
