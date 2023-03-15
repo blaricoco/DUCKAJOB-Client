@@ -7,6 +7,8 @@ import JobLists from './pages/JobLists';
 import styled from 'styled-components';
 
 // this manifest is used temporarily for development purposes
+// const manifestUrl =
+//   'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json';
 const manifestUrl =
   'https://raw.githubusercontent.com/ton-community/tutorials/main/03-client/test/public/tonconnect-manifest.json';
 

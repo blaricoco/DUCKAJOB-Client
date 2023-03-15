@@ -59,7 +59,7 @@ let githubUsername, githubRepo, botUsername;
 
   botUsername = getBot.data.result.username;
   const url = `https://${githubUsername}.github.io/${githubRepo}`;
-  const realUrl = 'https://duckajob.netlify.app/jobs';
+  const realUrl = 'https://duckajob.com/mobile-signup';
 
   console.log(`\n\nSetting bot ${botUsername} webapp url to ${url}`);
 
@@ -67,7 +67,7 @@ let githubUsername, githubRepo, botUsername;
     .post(`https://api.telegram.org/bot${accessToken}/setChatMenuButton`, {
       menu_button: {
         type: 'web_app',
-        text: 'Open app',
+        text: 'Open app2',
         web_app: {
           url: realUrl,
         },
