@@ -1,19 +1,29 @@
 import React from 'react';
+import { AuthContext } from '../../../contexts/authContext';
+import { getUserSkills } from '../../../utils/user';
 
 import styles from './Section.module.scss';
 
-const skills = ['Design', 'Development', 'UI/UX', 'Project managment'];
+// const skills = ['Design', 'Development', 'UI/UX', 'Project managment'];
 
 interface SkillProps {
-  skill: string;
+  skill: any;
 }
 const Skill: React.FC<SkillProps> = ({ skill }) => (
   <div className={styles.itemWrapper}>
-    <p>{skill}</p>
+    <p>{skill.name}</p>
   </div>
 );
 
 const Skills = () => {
+  const { user } = React.useContext(AuthContext);
+  const [skills, setSkills] = React.useState([]);
+
+  React.useEffect(() => {
+    // console.log('Uer', user);
+    user._id && getUserSkills(user._id, (res) => setSkills(res.data));
+  }, [user]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
@@ -22,8 +32,8 @@ const Skills = () => {
       </div>
 
       <div className={styles.skillsContent}>
-        {skills.map((skill) => (
-          <Skill skill={skill} />
+        {skills?.map((skill, index) => (
+          <Skill skill={skill} key={index} />
         ))}
       </div>
     </div>

@@ -8,14 +8,13 @@ import Skills from './components/Skills';
 import styles from './UserProfile.module.scss';
 
 import WebApp from '@twa-dev/sdk';
-import { Tabs } from '@mantine/core';
 import ProfileTab from './components/ProfileTab';
 import { useParams } from 'react-router-dom';
 import { getUserDetails } from '../../utils/user';
 
 const profile = () => {
   const { id } = useParams();
-  const data = WebApp.initDataUnsafe?.user;
+  // const data = WebApp.initDataUnsafe?.user;
   const [userData, setUserData] = React.useState<any>({});
 
   React.useEffect(() => {

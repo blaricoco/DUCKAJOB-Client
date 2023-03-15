@@ -24,6 +24,7 @@ import SelectionItem from './SelectionItem';
 
 interface SelectionProps {
   title: string;
+  desc?: string;
   data: any;
   setData: any;
 }
@@ -33,7 +34,7 @@ type Item = {
   name: string;
 };
 
-const Selection: React.FC<SelectionProps> = ({ title, data, setData }) => {
+const Selection: React.FC<SelectionProps> = ({ title, data, setData, desc }) => {
   const [items, setItems] = React.useState<Item[]>([]);
   const [inputName, setInputName] = React.useState('');
 
@@ -59,6 +60,7 @@ const Selection: React.FC<SelectionProps> = ({ title, data, setData }) => {
         <h5>{title}</h5>
         {true && <span>*</span>}
       </div>
+      {desc && <p className={styles.desc}>{desc}</p>}
 
       <div className={styles.searchInputCon}>
         <input

@@ -33,8 +33,8 @@ const Links = () => {
       </div>
 
       <div className={styles.linksContent}>
-        {links.map((link) => (
-          <Link {...link} />
+        {links.map((link, index) => (
+          <Link {...link} key={index} />
         ))}
       </div>
     </div>

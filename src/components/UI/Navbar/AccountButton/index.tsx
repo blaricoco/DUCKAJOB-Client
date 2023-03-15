@@ -2,13 +2,16 @@ import { Menu, Button, Text } from '@mantine/core';
 import React from 'react';
 import { useTonConnectUI } from '@tonconnect/ui-react';
 import WebApp from '@twa-dev/sdk';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTonConnect } from '../../../../hooks/useTonConnect';
 
 import { toUserFriendlyAddress } from '@tonconnect/sdk';
 import { AuthContext } from '../../../../contexts/authContext';
+import { authUser } from '../../../../utils/auth';
 
 function AccountButton() {
+  const router = useNavigate();
+
   const { user } = React.useContext(AuthContext);
 
   const [tonConnectUI] = useTonConnectUI();
@@ -18,10 +21,14 @@ function AccountButton() {
   React.useEffect(() => {
     if (wallet) {
       setNormalWallet(toUserFriendlyAddress(wallet));
+      // handleAuth(wallet);
     }
   }, [wallet]);
 
-  console.log();
+  const handleAuth = (wallet: string) => {
+    authUser(wallet, (res: any) => res.code === 1 && router(res.redirectUrl));
+    // res.code === 1 && router(res.redirectUrl)
+  };
 
   return (
     <>
@@ -38,7 +45,7 @@ function AccountButton() {
               <Menu.Item>job search</Menu.Item>
             </Link>
 
-            <Link to={`/user/${user._id}`}>
+            <Link to={`/user/${user?._id}`}>
               <Menu.Item>profile</Menu.Item>
             </Link>
 

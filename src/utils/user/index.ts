@@ -24,3 +24,14 @@ export const getUserDetailsByWallet = async (
     .then((res) => res.json())
     .then((res) => cb(res.user));
 };
+
+export const getUserSkills = async (userId: string, cb = (res: any) => console.log(res)) => {
+  fetch(`${apiUrl}/users/${userId}/tags`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => cb(res));
+};

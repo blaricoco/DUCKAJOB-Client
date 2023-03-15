@@ -59,8 +59,8 @@ const Reviews = () => {
       </div>
 
       <div className={styles.reviewsContent}>
-        {reviews.map((review) => (
-          <Review {...review} />
+        {reviews.map((review, index) => (
+          <Review key={index} {...review} />
         ))}
       </div>
     </div>

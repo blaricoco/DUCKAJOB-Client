@@ -10,11 +10,13 @@ import ThirdStep from './components/Steps/ThirdStep';
 import styles from './Registration.module.scss';
 import WebApp from '@twa-dev/sdk';
 import { registerUser } from '../../utils/auth';
+import { AuthContext } from '../../contexts/authContext';
 
 const Registration = () => {
   const router = useNavigate();
   const [tonConnectUI] = useTonConnectUI();
   const data = WebApp.initDataUnsafe?.user;
+  const { setUser } = React.useContext(AuthContext);
 
   const [active, setActive] = React.useState<number>(0);
   const totalSteps: number = 3;
@@ -38,7 +40,13 @@ const Registration = () => {
       links,
     };
 
-    registerUser(reqBody, (res) => router('/jobs'));
+    registerUser(reqBody, (res) => {
+      if (res.success) {
+        console.log(res);
+        setUser(res.data);
+        router('/jobs');
+      }
+    });
   };
 
   return (
@@ -49,7 +57,7 @@ const Registration = () => {
           {active === 0 ? (
             <FirstStep formData={{ username, setUsername, bio, setBio }} nextStep={nextStep} />
           ) : active === 1 ? (
-            <SecondStep prevStep={prevStep} nextStep={nextStep} />
+            <SecondStep formData={{ skills, setSkills }} prevStep={prevStep} nextStep={nextStep} />
           ) : (
             <ThirdStep prevStep={prevStep} nextStep={handleRegister} />
           )}
