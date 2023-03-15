@@ -39,9 +39,6 @@ const JobItem: React.FC<JobItemProps> = ({
   createdAt,
 }) => {
   const navigation = useNavigate();
-  // console.log(applications);
-
-  console.log(createdAt);
 
   return (
     <div onClick={() => navigation(`/jobs/${_id}`)} className={styles.wrapper}>
