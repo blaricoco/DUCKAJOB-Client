@@ -5,8 +5,6 @@ import { getUserSkills } from '../../../utils/user';
 
 import styles from './Section.module.scss';
 
-// const skills = ['Design', 'Development', 'UI/UX', 'Project managment'];
-
 interface SkillProps {
   skill: any;
 }
