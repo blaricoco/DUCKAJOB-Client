@@ -14,6 +14,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/UI/Navbar';
 import Navigator from './Navigator';
 import AuthScreen from './components/UI/AuthScreen';
+import React from 'react';
+import { AuthContext } from './contexts/authContext';
+import { getUserDetailsByWallet } from './utils/user';
 
 export const AppContainer = styled.div`
   max-width: 900px;
@@ -22,9 +25,16 @@ export const AppContainer = styled.div`
 
 function App() {
   const { wallet, connected } = useTonConnect();
-  // const wallet = useTonWallet()
+  const { setUser, user } = React.useContext(AuthContext);
+  // console.log(setUser);
 
-  console.log(wallet, connected);
+  React.useEffect(() => {
+    if (wallet) {
+      getUserDetailsByWallet(wallet, (res) => setUser(res));
+    }
+  }, [wallet]);
+
+  // console.log(wallet, connected);
   return (
     <>
       <Navigator />

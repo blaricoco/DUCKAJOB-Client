@@ -8,6 +8,7 @@ import WebApp from '@twa-dev/sdk';
 
 import styles from './Navbar.module.scss';
 import AccountButton from './AccountButton';
+import { AuthContext } from '../../../contexts/authContext';
 
 const Navbar = () => {
   return (
@@ -18,9 +19,6 @@ const Navbar = () => {
             {/* <h3>Duck a job</h3> */}
             <img className={styles.logo} src="/img/logodark.png" />
           </Link>
-          {/* <div className={styles.createBtn}>
-            <p>Create a job</p>
-          </div> */}
 
           <AccountButton />
           {/* <div className={styles.row}>

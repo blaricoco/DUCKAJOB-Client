@@ -1,21 +1,16 @@
 import { Menu, Button, Text } from '@mantine/core';
 import React from 'react';
 import { useTonConnectUI } from '@tonconnect/ui-react';
-// import {
-//   IconSettings,
-//   IconSearch,
-//   IconPhoto,
-//   IconMessageCircle,
-//   IconTrash,
-//   IconArrowsLeftRight,
-// } from '@tabler/icons';
 import WebApp from '@twa-dev/sdk';
 import { Link } from 'react-router-dom';
 import { useTonConnect } from '../../../../hooks/useTonConnect';
 
 import { toUserFriendlyAddress } from '@tonconnect/sdk';
+import { AuthContext } from '../../../../contexts/authContext';
 
 function AccountButton() {
+  const { user } = React.useContext(AuthContext);
+
   const [tonConnectUI] = useTonConnectUI();
   const { wallet, connected } = useTonConnect();
   const [normalWallet, setNormalWallet] = React.useState('');
@@ -43,7 +38,7 @@ function AccountButton() {
               <Menu.Item>job search</Menu.Item>
             </Link>
 
-            <Link to="/profile">
+            <Link to={`/user/${user._id}`}>
               <Menu.Item>profile</Menu.Item>
             </Link>
 
