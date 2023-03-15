@@ -12,12 +12,12 @@ import styles from './Job.module.scss';
 const tags = ['Func', 'Very fun c', 'React', 'Nest.js', 'Typescript', 'Java'];
 
 interface TagItemProps {
-  tag: string;
+  tag: any;
 }
 
 const TagItem: React.FC<TagItemProps> = ({ tag }) => (
   <div className={styles.tagWrapper}>
-    <p>{tag}</p>
+    <p>{tag.name}</p>
   </div>
 );
 
@@ -31,7 +31,7 @@ const Job = () => {
   React.useEffect(() => {
     if (id) {
       getJobDetails(id, (res: any) => {
-        // console.log(res.job);
+        console.log(res.job.tags);
         setApplications(res.applications);
         setData(res.job);
       });
@@ -63,7 +63,7 @@ const Job = () => {
             </div>
           </div>
           <div className={styles.tagsCon}>
-            {tags?.map((tag, index) => (
+            {data?.tags?.map((tag: any, index: number) => (
               <TagItem tag={tag} key={index} />
             ))}
           </div>

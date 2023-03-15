@@ -4,15 +4,15 @@ import { getJobDetails } from '../../../../utils/jobs';
 
 import styles from './JobItem.module.scss';
 
-const tags = ['Func', 'Very fun c', 'React', 'Nest.js', 'Typescript'];
+// const tags = ['Func', 'Very fun c', 'React', 'Nest.js', 'Typescript'];
 
 interface TagItemProps {
-  tag: string;
+  tag: any;
 }
 
 const TagItem: React.FC<TagItemProps> = ({ tag }) => (
   <div className={styles.tagWrapper}>
-    <p>{tag}</p>
+    <p>{tag.name}</p>
   </div>
 );
 
@@ -23,6 +23,7 @@ interface JobItemProps {
   budget: number;
   applications?: any[];
   owner: any;
+  tags?: any;
 }
 
 const JobItem: React.FC<JobItemProps> = ({
@@ -32,6 +33,7 @@ const JobItem: React.FC<JobItemProps> = ({
   budget,
   applications,
   owner,
+  tags,
 }) => {
   const navigation = useNavigate();
   // console.log(applications);
@@ -59,7 +61,7 @@ const JobItem: React.FC<JobItemProps> = ({
         <div className={styles.line} />
       </div>
       <div className={styles.tagsCon}>
-        {tags.map((tag, index) => (
+        {tags.map((tag: any, index: number) => (
           <TagItem tag={tag} key={index} />
         ))}
       </div>

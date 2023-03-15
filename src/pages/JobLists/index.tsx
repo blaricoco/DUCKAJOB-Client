@@ -22,6 +22,7 @@ const JobLists = () => {
 
   React.useEffect(() => {
     getJobs((res: any) => {
+      console.log(res);
       setJobs(res);
     });
   }, []);
@@ -33,7 +34,6 @@ const JobLists = () => {
         <div className={styles.wrapper}>
           <Filters />
           <div className={styles.list}>
-            {/* <JobItem title="Kill me" _id={'123'} description="qewfrvsdbghnjm" budget={228} /> */}
             {jobs?.map((job) => {
               return <JobItem {...job} key={job._id} />;
             })}
