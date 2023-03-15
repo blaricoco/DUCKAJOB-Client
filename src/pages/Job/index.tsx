@@ -31,7 +31,7 @@ const Job = () => {
   React.useEffect(() => {
     if (id) {
       getJobDetails(id, (res: any) => {
-        console.log(res.job.tags);
+        console.log(res.applications);
         setApplications(res.applications);
         setData(res.job);
       });
