@@ -1,8 +1,10 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useNavigation } from 'react-router-dom';
+import { Address } from 'ton-core';
 import PopUpContainer from '../../../../components/UI/PopUpContainer';
 import Rating from '../../../../components/UI/Rating';
 import { createContract } from '../../../../hooks/useJobContract';
+import { createContractDB } from '../../../../utils/contract';
 
 import styles from './Application.module.scss';
 
@@ -14,6 +16,26 @@ const Application = ({ application, owner }: any) => {
 
   const handleAcceptButtonClick = async () => {
     // alert('FUCK');
+    // await smartContractHandle();
+
+    const reqBody = {
+      jobId: application.jobId,
+      buyerId: owner._id,
+      sellerId: application.userId._id,
+      // userId:
+      applicationId: application._id,
+      seller_wallet: application.userId.wallet,
+      buyer_wallet: owner.wallet,
+      disputeResolver_wallet: 'kQAguT6dSS1u3cciZlCsG5Cn1aVnTT9tVWx-iH2uMnsRy-AP',
+      contract_price: 250,
+    };
+    createContractDB(reqBody, (res: any) => {
+      console.log(res);
+      navigation(`/contract/${res._id}`);
+    });
+  };
+
+  const smartContractHandle = async () => {
     console.log('=====Creating contract======');
     console.log('Developer:');
     console.log(application.userId.wallet);
@@ -26,6 +48,7 @@ const Application = ({ application, owner }: any) => {
     const data = await createJobLink(application.userId.wallet, owner.wallet);
     console.log('Data: ');
     console.log(data);
+    return data;
   };
 
   const [isPopup, setIsPopup] = React.useState(false);

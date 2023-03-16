@@ -1,11 +1,37 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Job, CreateJob, JobGetters } from '../../components/Job';
 import Navbar from '../../components/UI/Navbar';
 import Rating from '../../components/UI/Rating';
+import { getContractById } from '../../utils/contract';
 
 import styles from './Contract.module.scss';
 //import Job from '';
 const Contract = () => {
+  const { id } = useParams();
+  const [data, setData] = React.useState<any>({});
+  const [job, setJob] = React.useState<any>({});
+  const [buyer, setBuyer] = React.useState<any>({});
+  const [seller, setSeller] = React.useState<any>({});
+
+  React.useEffect(() => {
+    id &&
+      getContractById(id, (res) => {
+        const { buyer, seller, job, ...rest } = res;
+        console.log('Buyer', buyer);
+        setBuyer(buyer);
+        console.log(' ');
+        // console.log('Seller', seller);
+        setSeller(seller);
+        console.log(' ');
+        // console.log('Job', job);
+        setJob(job);
+        console.log(' ');
+        // console.log('Rest', rest);
+        console.log(' ');
+      });
+  }, [id]);
+
   return (
     <>
       <Navbar />
@@ -14,20 +40,13 @@ const Contract = () => {
         <div className={styles.wrapper}>
           <div className={styles.header}>
             <p className={styles.company}>
-              <span>Microsoft</span>
+              <span>{buyer?.username}</span>
               <img src="/icons/circle.svg" /> 2hr ago
             </p>
-            <div className={styles.priceCon}>
-              <p className={styles.priceTxt}>$1000</p>
-            </div>
           </div>
           <div className={styles.body}>
-            <h3 className={styles.title}>Make a logo for Microsoft.</h3>
-            <p className={styles.description}>
-              Fusce quam leo, congue in libero sit amet, tincidunt pretium neque. Nullam hendrerit
-              orci at ornare dignissim fusce quam leo, congue in libero sit amet, tincidunt pretium
-              neque. Nullam hendrerit orci at ornare dignissim
-            </p>
+            <h3 className={styles.title}>{job?.title}</h3>
+            <p className={styles.description}>{job?.description}</p>
             <div className={styles.stats}>
               <div className={styles.statsEl}>
                 <p className={styles.statTitle}>Budget</p>
@@ -50,12 +69,10 @@ const Contract = () => {
           <div className={styles.freelancerCard}>
             <div className={styles.header}>
               <div className={styles.row}>
-                <h2 className={styles.name}>Jennifer Vazquez</h2>
+                <h2 className={styles.name}>{seller?.username}</h2>
                 <Rating />
               </div>
-              <p className={styles.desc}>
-                UI/UX Designer, Entrepreneur I help companies build great products.
-              </p>
+              <p className={styles.desc}>{seller?.bio}</p>
             </div>
             <div className={styles.msgButton}>
               <p>Message</p>
@@ -63,6 +80,8 @@ const Contract = () => {
           </div>
         </div>
       </div>
+
+      <h2 style={{ marginTop: 30 }}>Developing:</h2>
       {/* <CreateJob /> */}
       {/* <JobGetters /> */}
       <Job contract="EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH" />
