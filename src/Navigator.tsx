@@ -19,7 +19,7 @@ const Navigator = () => {
         <Route path={`${path}/jobs`} element={<JobLists />} />
         <Route path={`${path}/jobs/:id`} element={<Job />} />
 
-        <Route path={`${path}/contract`} element={<Contract />} />
+        <Route path={`${path}/contract/:id`} element={<Contract />} />
 
         <Route path={`${path}/user/:id`} element={<UserProfile />} />
         <Route path={`${path}/create-job`} element={<CreateJob />} />

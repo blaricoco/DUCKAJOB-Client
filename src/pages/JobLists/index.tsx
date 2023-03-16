@@ -6,6 +6,7 @@ import JobItem from './components/JobItem';
 import styles from './JobLists.module.scss';
 import React from 'react';
 import { getJobs } from '../../utils/jobs';
+import LoadingSpinner from '../../components/UI/LoadingSpinner';
 
 type Job = {
   _id: string;
@@ -20,11 +21,13 @@ type Job = {
 
 const JobLists = () => {
   const [jobs, setJobs] = React.useState<Job[]>([]);
+  const [isLoading, setIsLoading] = React.useState(true);
 
   React.useEffect(() => {
     getJobs((res: any) => {
       // console.log(res);
       setJobs(res);
+      setIsLoading(false);
     });
   }, []);
 
@@ -34,12 +37,15 @@ const JobLists = () => {
       <div className="container">
         <div className={styles.wrapper}>
           <Filters />
-          <div className={styles.list}>
-            {jobs?.map((job) => {
-              // console.log(job);
-              return <JobItem {...job} key={job._id} />;
-            })}
-          </div>
+          {isLoading ? (
+            <LoadingSpinner />
+          ) : (
+            <div className={styles.list}>
+              {jobs?.map((job) => {
+                return <JobItem {...job} key={job._id} />;
+              })}
+            </div>
+          )}
         </div>
       </div>
     </>

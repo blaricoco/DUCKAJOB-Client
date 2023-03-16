@@ -1,0 +1,36 @@
+.intro {
+  // background: linear-gradient(#fff, #dcf3ff);
+
+  .introInner {
+    height: 100vh;
+    margin-top: -70px;
+    display: flex;
+    //   padding-top: 20vh;
+    align-items: center;
+    justify-content: space-between;
+
+    .left {
+      width: 45%;
+    }
+    .right {
+      width: 40%;
+    }
+
+    .title {
+      font-size: 54px;
+      font-weight: bold;
+    }
+    .desc {
+      font-size: 20px;
+      margin-top: 16px;
+      color: #242424;
+    }
+
+    .circle {
+      width: 350px;
+      height: 350px;
+      background-color: #0088cc;
+      border-radius: 100%;
+    }
+  }
+}
