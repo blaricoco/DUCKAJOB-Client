@@ -31,7 +31,7 @@ const Job = () => {
   React.useEffect(() => {
     if (id) {
       getJobDetails(id, (res: any) => {
-        // console.log(res.applications);
+        // console.log('owner', res.job.owner);
         setApplications(res.applications);
         setData(res.job);
       });
@@ -70,7 +70,7 @@ const Job = () => {
           {/* check if its my job */}
           {data.owner ? (
             data.owner._id === user._id ? (
-              <Applications applications={applications} />
+              <Applications applications={applications} owner={data?.owner} />
             ) : (
               <ApplyButton data={{ jobId: id, userId: user._id }} />
             )

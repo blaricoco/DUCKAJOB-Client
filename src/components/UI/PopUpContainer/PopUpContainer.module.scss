@@ -1,0 +1,24 @@
+.wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+
+  .content {
+    padding: 20px 6px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    // align-items: center;
+    background-color: #fff;
+    width: 90%;
+    max-height: 80%;
+    z-index: 100000;
+  }
+}

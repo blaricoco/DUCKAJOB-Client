@@ -6,12 +6,10 @@ import Rating from '../../components/UI/Rating';
 import styles from './Contract.module.scss';
 //import Job from '';
 const Contract = () => {
-
-
   return (
     <>
       <Navbar />
-      
+
       <div className="container">
         <div className={styles.wrapper}>
           <div className={styles.header}>
@@ -66,8 +64,8 @@ const Contract = () => {
         </div>
       </div>
       {/* <CreateJob /> */}
-      <JobGetters />
-      {/* <Job contract="EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH" /> */}
+      {/* <JobGetters /> */}
+      <Job contract="EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH" />
     </>
   );
 };

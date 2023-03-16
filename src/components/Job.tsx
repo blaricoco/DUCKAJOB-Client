@@ -42,46 +42,45 @@ export function CreateJob() {
         <FlexBoxRow>
           <Ellipsis>{walletAddress}</Ellipsis>
         </FlexBoxRow>
-        <FlexBoxRow>
-          Job Link!
-        </FlexBoxRow>
+        <FlexBoxRow>Job Link!</FlexBoxRow>
         <Button
           disabled={!connected}
           onClick={async () => {
-            createJobLink();
+            createJobLink(
+              '0:20b93e9d492d6eddc7226650ac1b90a7d5a5674d3f6d556c7e887dae327b11cb',
+              '0:b13d78ed10135b0de57511baee57d148449b21e85510dd9fac13e1aa0ebccbea',
+            );
           }}>
-          Job Contract 
+          Job Contract
         </Button>
       </FlexBoxCol>
     </Card>
   );
 }
 
-
 export function JobGetters() {
-    const { connected } = useTonConnect();
-    const { walletAddress, getContractStatus, getDeliveryTime, getDeployedTime } = useJobContractGetters("EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH");
-  
-    return (
-      <Card title="Job">
-        <FlexBoxCol>
-          <h3>Job Getters</h3>
-          <FlexBoxRow>
-            <Ellipsis>{walletAddress}</Ellipsis>
-          </FlexBoxRow>
-          <FlexBoxRow>
-            Job Link!
-          </FlexBoxRow>
-          <Button
-            disabled={!connected}
-            onClick={async () => {
-                getContractStatus();
-                getDeliveryTime();
-                getDeployedTime();
-            }}>
-            Job Contract 
-          </Button>
-        </FlexBoxCol>
-      </Card>
-    );
-  }
+  const { connected } = useTonConnect();
+  const { walletAddress, getContractStatus, getDeliveryTime, getDeployedTime } =
+    useJobContractGetters('EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH');
+
+  return (
+    <Card title="Job">
+      <FlexBoxCol>
+        <h3>Job Getters</h3>
+        <FlexBoxRow>
+          <Ellipsis>{walletAddress}</Ellipsis>
+        </FlexBoxRow>
+        <FlexBoxRow>Job Link!</FlexBoxRow>
+        <Button
+          disabled={!connected}
+          onClick={async () => {
+            getContractStatus();
+            getDeliveryTime();
+            getDeployedTime();
+          }}>
+          Job Contract
+        </Button>
+      </FlexBoxCol>
+    </Card>
+  );
+}

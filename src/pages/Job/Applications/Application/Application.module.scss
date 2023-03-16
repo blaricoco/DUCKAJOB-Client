@@ -56,3 +56,66 @@
     justify-content: center;
   }
 }
+
+.popup {
+  width: 100%;
+
+  .row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    h5 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-right: 12px;
+      text-decoration: underline;
+    }
+  }
+
+  .offerCon {
+    border: 1px solid #eaeaea;
+    background-color: #fff;
+    color: #6a6a6a;
+    // width: fit-content;
+    padding: 8px 16px;
+    border-radius: 48px;
+    font-size: 16px;
+  }
+
+  .btnsCon {
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .acceptOfferCon {
+      flex: 1;
+      background-color: #0088cc;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      border-radius: 48px;
+    }
+    .messageCon {
+      flex: 1;
+      background-color: #fff;
+      border: 2px solid #0088cc;
+      color: #0088cc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 36px;
+      border-radius: 48px;
+    }
+  }
+}
