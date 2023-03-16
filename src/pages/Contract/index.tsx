@@ -32,10 +32,13 @@ const Contract = () => {
       });
   }, [id]);
 
+  
+  // TODO: DISPLAY CONTRACT
+  // TODO: CREATE BUTTONS WITH CONTRACT FUNCTIONALITY
   return (
     <>
       <Navbar />
-
+ 
       <div className="container">
         <div className={styles.wrapper}>
           <div className={styles.header}>
@@ -84,7 +87,7 @@ const Contract = () => {
       <h2 style={{ marginTop: 30 }}>Developing:</h2>
       {/* <CreateJob /> */}
       {/* <JobGetters /> */}
-      <Job contract="EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH" />
+      {/* <Job contract="EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH" /> */}
     </>
   );
 };

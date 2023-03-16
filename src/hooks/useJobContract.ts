@@ -21,8 +21,8 @@ export function useJobContract(contract: string) {
   const fundingProject = async () => {
     const result = await jobContract?.send(
       sender,
-      { value: toNano(1) },
-      { $$type: 'Fund_Project', amount: 250n },
+      { value: toNano(3) },
+      { $$type: 'Fund_Project', amount: 3n },
     );
     console.log(result);
 
@@ -98,48 +98,41 @@ export function useJobContract(contract: string) {
 }
 
 // Need to pass seller, buyer and contract price
-export function createContract() {
-  const { wallet, sender } = useTonConnect();
-  const { client } = useTonClient();
+export function createContract(developerWallet: string, clientWallet: string,dispute_resolver: string, contractPrice:bigint) {
+    const { wallet, sender } = useTonConnect();
+    const { client } = useTonClient();
 
-  // dev
-  const seller = Address.parse('kQCxPXjtEBNbDeV1EbruV9FIRJsh6FUQ3Z-sE-GqDrzL6kcf');
-  // client
-  const buyer = Address.parse('kQAguT6dSS1u3cciZlCsG5Cn1aVnTT9tVWx-iH2uMnsRy-AP');
-  // support guy
-  const dispute_resolver = Address.parse('kQAguT6dSS1u3cciZlCsG5Cn1aVnTT9tVWx-iH2uMnsRy-AP');
-  const contractPrice = 250n;
+    const test = () => {
+        alert('createContract');
+    };
 
-  let deployAmount = toNano('0.5');
+    const jobContract = useAsyncInitialize(async () => {
 
-  const test = () => {
-    alert('createContract');
-  };
+        if (!client || !wallet) return;
 
-  const createJobLink = async (developerWallet: string, clientWallet: string) => {
-    let init = await JobContract.init(
-      Address.parse(developerWallet),
-      Address.parse(clientWallet),
-      dispute_resolver,
-      contractPrice,
+        let jobContract = await JobContract.fromInit(
+            Address.parse(developerWallet),
+            Address.parse(clientWallet),
+            Address.parse(dispute_resolver),
+            contractPrice,
+            );
+
+        return client.open(jobContract) as OpenedContract<JobContract>;
+
+        }, [client, wallet]
     );
-    let address = contractAddress(0, init);
-    let initStr = base64url(
-      beginCell().store(storeStateInit(init)).endCell().toBoc({ idx: false }),
-    );
-    let deployLink =
-      `ton://transfer/` +
-      address.toString({ testOnly: true }) +
-      '?' +
-      qs.stringify({
-        text: 'Deploy',
-        amount: deployAmount.toString(10),
-        init: initStr,
-      });
-    console.log(deployLink);
+    
+    const createJobLink = async () => {
 
-    return { msg: deployLink, address: address.toString() };
-  };
+        const result = await jobContract?.send(
+            sender,
+            { value: toNano(1) },
+            { $$type: 'Deploy', queryId: 0n },
+        );
+    
+        return { msg: 'Funded succes', address: jobContract?.address.toString() };
+    };
+
 
   return {
     walletAddress: wallet,

@@ -3,7 +3,7 @@ import { Link, useNavigate, useNavigation } from 'react-router-dom';
 import { Address } from 'ton-core';
 import PopUpContainer from '../../../../components/UI/PopUpContainer';
 import Rating from '../../../../components/UI/Rating';
-import { createContract } from '../../../../hooks/useJobContract';
+import { createContract,useJobContract, useJobContractGetters  } from '../../../../hooks/useJobContract';
 import { createContractDB } from '../../../../utils/contract';
 
 import styles from './Application.module.scss';
@@ -12,12 +12,19 @@ const Application = ({ application, owner }: any) => {
   // console.log(application);
   const navigation = useNavigate();
 
-  const { createJobLink } = createContract();
+  const { createJobLink } = createContract(application.userId.wallet, owner.wallet,application.userId.wallet,3n);
+  const {fundingProject} = useJobContract("EQB3t5dB-DBpP6pFhhKm4jg8Fk3Ru7bqQ38kE9cCQZpvDjSV");
+  const {getDepositTime} = useJobContractGetters("kQAq_yMMnSvml8HVgxWyRgilkg6okm_YkTEO1HPL74Oe5qSl");
 
   const handleAcceptButtonClick = async () => {
     // alert('FUCK');
     // await smartContractHandle();
-
+    console.log("CREATE LINK!!");
+    // const data = await createJobLink();
+    // console.log(data.address);
+    const test = await getDepositTime();
+    console.log(test.msg);
+    
     const reqBody = {
       jobId: application.jobId,
       buyerId: owner._id,
@@ -45,9 +52,12 @@ const Application = ({ application, owner }: any) => {
     console.log(' ');
     console.log(' ');
 
-    const data = await createJobLink(application.userId.wallet, owner.wallet);
+    // TODO: CREATE CONTRACT WITHOUT LINK 
+    
+    const data = await createJobLink();
     console.log('Data: ');
     console.log(data);
+    console.log(data.address);
     return data;
   };
 

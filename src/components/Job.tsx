@@ -33,7 +33,11 @@ export function Job({ contract }: any) {
 
 export function CreateJob() {
   const { connected } = useTonConnect();
-  const { walletAddress, createJobLink } = createContract();
+  const { walletAddress, createJobLink } = createContract(
+    '0:20b93e9d492d6eddc7226650ac1b90a7d5a5674d3f6d556c7e887dae327b11cb',
+    '0:b13d78ed10135b0de57511baee57d148449b21e85510dd9fac13e1aa0ebccbea',
+    '0:20b93e9d492d6eddc7226650ac1b90a7d5a5674d3f6d556c7e887dae327b11cb',
+    2n);
 
   return (
     <Card title="Job">
@@ -47,8 +51,6 @@ export function CreateJob() {
           disabled={!connected}
           onClick={async () => {
             createJobLink(
-              '0:20b93e9d492d6eddc7226650ac1b90a7d5a5674d3f6d556c7e887dae327b11cb',
-              '0:b13d78ed10135b0de57511baee57d148449b21e85510dd9fac13e1aa0ebccbea',
             );
           }}>
           Job Contract
