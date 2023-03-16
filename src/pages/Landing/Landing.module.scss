@@ -1,42 +1,6 @@
 .wrapper {
   height: 200vh;
 
-  .intro {
-    // background: linear-gradient(#fff, #dcf3ff);
-
-    .introInner {
-      height: 100vh;
-      margin-top: -70px;
-      display: flex;
-      //   padding-top: 20vh;
-      align-items: center;
-      justify-content: space-between;
-
-      .left {
-        width: 45%;
-      }
-      .right {
-        width: 40%;
-      }
-
-      .title {
-        font-size: 64px;
-        font-weight: bold;
-      }
-      .desc {
-        font-size: 20px;
-        margin-top: 12px;
-      }
-
-      .circle {
-        width: 350px;
-        height: 350px;
-        background-color: #0088cc;
-        border-radius: 100%;
-      }
-    }
-  }
-
   .numbers {
     background-color: #dcf3ff;
     width: 100%;
