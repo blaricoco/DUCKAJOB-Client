@@ -1,5 +1,7 @@
 import React from 'react';
 import Navbar from '../../components/UI/Navbar';
+import Duck from './components/IntroCanvas';
+import Intro from './components/Intro';
 
 import styles from './Landing.module.scss';
 
@@ -7,22 +9,7 @@ const Landing = () => {
   return (
     <div className={styles.wrapper}>
       <Navbar />
-      <main className={styles.intro}>
-        <div className="container">
-          <div className={styles.introInner}>
-            <div className={styles.left}>
-              <h1 className={styles.title}>Duck a job</h1>
-              <p className={styles.desc}>
-                Revolutionary freelancing app with TON blockchain smart contracts for secure
-                transactions.
-              </p>
-            </div>
-            <div className={styles.right}>
-              <div className={styles.circle}></div>
-            </div>
-          </div>
-        </div>
-      </main>
+      <Intro />
 
       <section className={styles.numbers}>
         <div className="container">
