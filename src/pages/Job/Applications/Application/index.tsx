@@ -84,13 +84,16 @@ const Application = ({ application, owner }: any) => {
         </div>
       </PopUpContainer>
       <div className={styles.wrapper} onClick={() => setIsPopup(true)}>
-        <div
-          // onClick={() => navigation(`/user/${application.userId._id}`)}
-          className={styles.header}>
-          <h5>{application.userId.username}</h5>
-          <Rating />
+        <div className={styles.body}>
+          <div
+            // onClick={() => navigation(`/user/${application.userId._id}`)}
+            className={styles.header}>
+            <h5>{application.userId.username}</h5>
+            <Rating />
+          </div>
+          <p className={styles.desc}>{application.userId.bio}</p>
         </div>
-        <p className={styles.desc}>{application.userId.bio}</p>
+
         <div className={styles.footer}>
           <div
             // onClick={() => navigation(`/contract/${application.userId._id}`)}
@@ -99,9 +102,9 @@ const Application = ({ application, owner }: any) => {
           </div>
           <p className={styles.date}>2 hours ago</p>
         </div>
-        <div className={styles.arrNextCon}>
+        {/* <div className={styles.arrNextCon}>
           <img src="/icons/nextBtn.svg" />
-        </div>
+        </div> */}
       </div>
     </>
   );
