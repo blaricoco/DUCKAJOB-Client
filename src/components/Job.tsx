@@ -1,11 +1,11 @@
 import { beginCell, toNano, Address, Cell, fromNano } from 'ton';
 import { useTonConnect } from '../hooks/useTonConnect';
-import { useJobContract, createJobContract } from '../hooks/useJobContract';
+import { useJobContract, useJobContractGetters, createContract } from '../hooks/useJobContract';
 import { Card, FlexBoxCol, FlexBoxRow, Button, Ellipsis } from './styled/styled';
 
 export function Job({ contract }: any) {
   const { connected } = useTonConnect();
-  const { walletAddress, contractDeliveryTime, fundingProject } = useJobContract(contract);
+  const { walletAddress, fundingProject } = useJobContract(contract);
 
   return (
     <Card title="Job">
@@ -17,12 +17,11 @@ export function Job({ contract }: any) {
         </FlexBoxRow>
         <FlexBoxRow>
           Contract Delivery time
-          <div>{contractDeliveryTime?.toString() ?? 'Loading...'}</div>
+          <div>'Loading...'</div>
         </FlexBoxRow>
         <Button
           disabled={!connected}
           onClick={async () => {
-            //mint();
             fundingProject();
           }}>
           Job Contract
@@ -34,27 +33,55 @@ export function Job({ contract }: any) {
 
 export function CreateJob() {
   const { connected } = useTonConnect();
-  const { walletAddress, link } = createJobContract();
+  const { walletAddress, createJobLink } = createContract();
 
   return (
     <Card title="Job">
       <FlexBoxCol>
-        <h3>CREATE Job</h3>
+        <h3>Job Getters</h3>
         <FlexBoxRow>
           <Ellipsis>{walletAddress}</Ellipsis>
         </FlexBoxRow>
         <FlexBoxRow>
           Job Link!
-          <div>{link?.toString() ?? 'Loading...'}</div>
         </FlexBoxRow>
         <Button
           disabled={!connected}
           onClick={async () => {
-            //mint();
+            createJobLink();
           }}>
-          Job Contract
+          Job Contract 
         </Button>
       </FlexBoxCol>
     </Card>
   );
 }
+
+
+export function JobGetters() {
+    const { connected } = useTonConnect();
+    const { walletAddress, getContractStatus, getDeliveryTime, getDeployedTime } = useJobContractGetters("EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH");
+  
+    return (
+      <Card title="Job">
+        <FlexBoxCol>
+          <h3>Job Getters</h3>
+          <FlexBoxRow>
+            <Ellipsis>{walletAddress}</Ellipsis>
+          </FlexBoxRow>
+          <FlexBoxRow>
+            Job Link!
+          </FlexBoxRow>
+          <Button
+            disabled={!connected}
+            onClick={async () => {
+                getContractStatus();
+                getDeliveryTime();
+                getDeployedTime();
+            }}>
+            Job Contract 
+          </Button>
+        </FlexBoxCol>
+      </Card>
+    );
+  }

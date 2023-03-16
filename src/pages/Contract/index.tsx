@@ -1,5 +1,5 @@
 import React from 'react';
-import { Job, CreateJob } from '../../components/Job';
+import { Job, CreateJob, JobGetters } from '../../components/Job';
 import Navbar from '../../components/UI/Navbar';
 import Rating from '../../components/UI/Rating';
 
@@ -66,7 +66,8 @@ const Contract = () => {
         </div>
       </div>
       {/* <CreateJob /> */}
-      <Job contract="EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH" />
+      <JobGetters />
+      {/* <Job contract="EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH" /> */}
     </>
   );
 };
