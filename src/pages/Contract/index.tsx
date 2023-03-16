@@ -1,13 +1,17 @@
 import React from 'react';
+import { Job, CreateJob } from '../../components/Job';
 import Navbar from '../../components/UI/Navbar';
 import Rating from '../../components/UI/Rating';
 
 import styles from './Contract.module.scss';
-
+//import Job from '';
 const Contract = () => {
+
+
   return (
     <>
       <Navbar />
+      
       <div className="container">
         <div className={styles.wrapper}>
           <div className={styles.header}>
@@ -61,6 +65,8 @@ const Contract = () => {
           </div>
         </div>
       </div>
+      {/* <CreateJob /> */}
+      <Job contract="EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH" />
     </>
   );
 };
