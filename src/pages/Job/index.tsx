@@ -4,6 +4,7 @@ import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import Navbar from '../../components/UI/Navbar';
 import { AuthContext } from '../../contexts/authContext';
 import { applyForJob } from '../../utils/application';
+import { formatDate } from '../../utils/dateFormat';
 import { getJobDetails } from '../../utils/jobs';
 import Applications from './Applications';
 import ApplyButton from './ApplyButton';
@@ -59,6 +60,7 @@ const Job = () => {
               <div className={styles.priceCon}>
                 <p className={styles.priceTxt}>${data?.budget}</p>
               </div>
+
             </div>
             <div className={styles.body}>
               <h3 className={styles.title}>{data?.title}</h3>

@@ -16,6 +16,7 @@ type Job = {
   tags?: any[];
   applications?: any[];
   owner: any;
+  createdAt: Date;
 };
 
 const JobLists = () => {
@@ -24,7 +25,7 @@ const JobLists = () => {
 
   React.useEffect(() => {
     getJobs((res: any) => {
-      console.log(res);
+      // console.log(res);
       setJobs(res);
       setIsLoading(false);
     });

@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { formatDate } from '../../../../utils/dateFormat';
 import { getJobDetails } from '../../../../utils/jobs';
 
 import styles from './JobItem.module.scss';
@@ -24,6 +25,7 @@ interface JobItemProps {
   applications?: any[];
   owner: any;
   tags?: any;
+  createdAt: Date;
 }
 
 const JobItem: React.FC<JobItemProps> = ({
@@ -34,16 +36,16 @@ const JobItem: React.FC<JobItemProps> = ({
   applications,
   owner,
   tags,
+  createdAt,
 }) => {
   const navigation = useNavigate();
-  // console.log(applications);
 
   return (
     <div onClick={() => navigation(`/jobs/${_id}`)} className={styles.wrapper}>
       <div className={styles.header}>
         <p className={styles.company}>
           <span>{owner?.username}</span>
-          <img src="/icons/circle.svg" /> 2hr ago
+          <img src="/icons/circle.svg" /> {formatDate(new Date(createdAt))}
         </p>
         <div className={styles.priceCon}>
           <p className={styles.priceTxt}>${budget}</p>
