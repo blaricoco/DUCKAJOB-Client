@@ -13,6 +13,19 @@ export const getJobs = async (cb?: any) => {
     });
 };
 
+export const getJobsByUser = async (userId: string, cb?: any) => {
+  fetch(`${apiUrl}/jobs/user/${userId}`)
+    .then((res) => {
+      // console.log(res);
+      // alert(`isOk:${res.ok}, url:${res.url}, redirected:${res.redirected}, type:${res.type}`);
+
+      return res.json();
+    })
+    .then((res) => {
+      cb ? cb(res) : console.log(res);
+    });
+};
+
 export const getJobDetails = async (jobId: string, cb?: any) => {
   fetch(`${apiUrl}/jobs/${jobId}`)
     .then((res) => res.json())

@@ -29,4 +29,13 @@ export const getApplicationByJobAndUser = async (
 export const getApplicationsByUser = async (
   userId: string,
   cb = (res: any) => console.log(res),
-) => {};
+) => {
+  fetch(`${apiUrl}/applications/user/${userId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => cb(res.data));
+};
