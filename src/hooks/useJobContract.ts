@@ -8,6 +8,8 @@ import { toNano, fromNano, Cell, contractAddress, beginCell, storeStateInit } fr
 import base64url from 'base64url';
 import qs from 'qs';
 
+import React from "react"
+
 export function useJobContract(contract: string) {
   const { wallet, sender } = useTonConnect();
   const { client } = useTonClient();
@@ -15,10 +17,6 @@ export function useJobContract(contract: string) {
   const changeStatus = async (status:number) => {
     let result
     switch (status) {
-      case 0:
-        // Status: onGoing 
-        result = await jobContract?.send( sender, { value: await jobContract?.getContractPrice() }, { $$type: 'Fund_Project', amount:  await jobContract?.getContractPrice() });
-        break;
       case 1:
         // Status: Delivered 
         result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerDelivered');
@@ -37,16 +35,76 @@ export function useJobContract(contract: string) {
         // Status: Dispute
         result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerDispute');
       case 6:
-        // Status: Resolved buyer
-        result = await jobContract?.send(sender, { value: toNano(1) }, { $$type: 'Dispute_Resolve', address: await jobContract?.getBuyer()} );
-      case 7:
-        // Status: Resolved seller
-        result = await jobContract?.send(sender, { value: toNano(1) }, { $$type: 'Dispute_Resolve', address: await jobContract?.getSeller()} );
+        // Status: Resolved
+        result = await jobContract?.send(sender, { value: toNano(1) }, { $$type: 'Dispute_Resolve', address: Address.parse('contract') } );
       default:
           break;
     }
+    // const result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerDelivered');
+    // console.log(result);
 
-    return result;
+    // return { msg: 'Funded succes' };
+  };
+
+  // Value needs to be passed down
+  // Client funds the project
+  const fundingProject = async (amount:number) => {
+    const result = await jobContract?.send(
+      sender,
+      { value: toNano(amount) },
+      { $$type: 'Fund_Project', amount:  toNano(amount)},
+    );
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+  // developer ticking project as delivered
+  const sellerDelivered = async () => {
+    const result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerDelivered');
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+  // buyer accept project, project finished
+  const buyerAccept = async () => {
+    const result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerAccept');
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+  // buyer didnt accept, we r waiting for another guy to review
+  const buyerDispute = async () => {
+    const result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerDispute');
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+  // address of winner needs to be passed down
+  const disputeResolve = async () => {
+    const result = await jobContract?.send(sender, { value: toNano(1) },
+      { $$type: 'Dispute_Resolve', address: Address.parse('contract') },
+    );
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+  const sellerNotDelivered = async () => {
+    const result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerNotDelivered');
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+  const buyerNotReviewed = async () => {
+    const result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerNotReviewed');
+    console.log(result);
+
+    return { msg: 'Funded succes' };
   };
 
   const jobContract = useAsyncInitialize(async () => {
@@ -57,7 +115,14 @@ export function useJobContract(contract: string) {
 
   return {
     walletAddress: wallet,
-    changeStatus
+    changeStatus,
+    fundingProject,
+    sellerDelivered,
+    buyerAccept,
+    buyerDispute,
+    disputeResolve,
+    sellerNotDelivered,
+    buyerNotReviewed,
   };
 }
 
@@ -83,36 +148,35 @@ export function createContract(developerWallet: string, clientWallet: string,dis
         }, [client, wallet]
     );
     
+    // USED FOR CONTRACT CREATION
     const deployContract = async () => {
-      
-      let deployAmount = toNano('0.5');
 
-      let init = await JobContract.init(
-        Address.parse(developerWallet),
-        Address.parse(clientWallet),
-        Address.parse(dispute_resolver),
-        deployAmount,);
+      // let init = await JobContract.init(
+      //   Address.parse(developerWallet),
+      //   Address.parse(clientWallet),
+      //   Address.parse(dispute_resolver),
+      //   contractPrice,);
 
       let initStr = base64url(beginCell()
-      .store(storeStateInit(init))
+      .store(storeStateInit(jobContract?.init!))
       .endCell()
       .toBoc({ idx: false }));
  
-      
-    
-      let address = contractAddress(0, init);
+      let deployAmount = toNano('0.5');
+
+      let address = contractAddress(0, jobContract?.init!);
 
       await jobContract?.send(
           sender,
-          { value: deployAmount },
+          { value: contractPrice },
           { $$type: 'Deploy', queryId: 0n },
       );
 
       return { link: `ton://transfer/` + address.toString({ testOnly: true }) + "?" + qs.stringify({
         text: 'Deploy',
-        amount: deployAmount.toString(10) ,
+        amount: deployAmount.toString(10),
         init: initStr }), address: jobContract?.address.toString() };
-  };
+    };
 
     const createJobLink  = (async () => {
       // Forming an init package
@@ -148,51 +212,209 @@ export function createContract(developerWallet: string, clientWallet: string,dis
       });
 
 
-  return {
-    walletAddress: wallet,
-    createJobLink,
-    deployContract,
-  };
-}
+    return {
+      walletAddress: wallet,
+      createJobLink,
+      deployContract,
+    };
+  }
 
-export function useJobContractGetters(contract: string) {
+export function useJobContractGetters() {
   const { wallet, sender } = useTonConnect();
   const { client } = useTonClient();
+  
 
-  const contractStatus = async (status:string) => {
+  const [address, setAddress] = React.useState("")
+  const [isLoaded, setIsLoaded] = React.useState(false)
+
+
+  // SEX
+
+
+  const changeStatus = async (status:number) => {
     let result
     switch (status) {
-      case "getContractPrice":
-        result = await jobContract?.getContractPrice();
-      case "getContractStatus":
-        result = await jobContract?.getContractStatus();
-      case "getContractStatus":
-        result = await jobContract?.getDeliveryTime();
-      case "getContractStatus":
-        result = await jobContract?.getDepositTime();
-      case "getContractStatus":
-        result = await jobContract?.getFunds();
-      case "getContractStatus":
-        result = await jobContract?.getMaxTimeToComplete();
-      case "getContractStatus":
-        result = await jobContract?.getMaxTimeToDeposit();
-      case "getContractStatus":
-        result = await jobContract?.getMaxTimeToReview();
+      case 1:
+        // Status: Delivered 
+        result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerDelivered');
+        break;
+      case 2:
+        // Status: Accepted
+        result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerAccept');
+        break;
+      case 3:
+        // Status: NotDelivered
+        result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerNotDelivered');
+      case 4:
+        // Status: NotReviewed
+        result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerNotReviewed');
+      case 5:
+        // Status: Dispute
+        result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerDispute');
+      case 6:
+        // Status: Resolved
+        result = await jobContract?.send(sender, { value: toNano(1) }, { $$type: 'Dispute_Resolve', address: Address.parse('contract') } );
       default:
           break;
     }
+    // const result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerDelivered');
+    // console.log(result);
 
-    return result;
-  }
+    // return { msg: 'Funded succes' };
+  };
+
+  // Value needs to be passed down
+  // Client funds the project
+  const fundingProject = async (amount:number) => {
+    const result = await jobContract?.send(
+      sender,
+      { value: toNano(amount) },
+      { $$type: 'Fund_Project', amount:  toNano(amount)},
+    );
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+  // developer ticking project as delivered
+  const sellerDelivered = async () => {
+    const result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerDelivered');
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+  // buyer accept project, project finished
+  const buyerAccept = async () => {
+    const result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerAccept');
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+  // buyer didnt accept, we r waiting for another guy to review
+  const buyerDispute = async () => {
+    const result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerDispute');
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+  // address of winner needs to be passed down
+  const disputeResolve = async () => {
+    const result = await jobContract?.send(sender, { value: toNano(1) },
+      { $$type: 'Dispute_Resolve', address: Address.parse('contract') },
+    );
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+  const sellerNotDelivered = async () => {
+    const result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerNotDelivered');
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+  const buyerNotReviewed = async () => {
+    const result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerNotReviewed');
+    console.log(result);
+
+    return { msg: 'Funded succes' };
+  };
+
+
+  // SEX
+
+  const getContractPrice = async () => {
+    const message = await jobContract?.getContractPrice();
+
+    console.log(message?.toString());
+
+    return { msg: message };
+  };
+
+  const getContractStatus = async () => {
+    if (!isLoaded) return
+    console.log("Trying to get status", jobContract?.address.toString())
+    const message = await jobContract?.getContractStatus();
+    console.log(message);
+
+    return { msg: message };
+  };
+
+  const getDeliveryTime = async () => {
+    const message = await jobContract?.getDeliveryTime();
+    console.log(message);
+
+    return { msg: message };
+  };
+
+  const getDeployedTime = async () => {
+    const message = await jobContract?.getDeployedTime();
+    console.log(message);
+
+    return { msg: message };
+  };
+
+  const getDepositTime = async () => {
+    const message = await jobContract?.getDepositTime();
+    console.log(message);
+
+    return { msg: message };
+  };
+
+  const getFunds = async () => {
+    const message = await jobContract?.getFunds();
+    console.log(message);
+
+    return { msg: message };
+  };
+
+  const getMaxTimeToComplete = async () => {
+    const message = await jobContract?.getMaxTimeToComplete();
+    console.log(message);
+
+    return { msg: message };
+  };
+
+  const getMaxTimeToDeposit = async () => {
+    const message = await jobContract?.getMaxTimeToDeposit();
+    console.log(message);
+
+    return { msg: message };
+  };
+
+  const getMaxTimeToReview = async () => {
+    const message = await jobContract?.getMaxTimeToReview();
+    console.log(message);
+
+    return { msg: message };
+  };
 
   const jobContract = useAsyncInitialize(async () => {
-    if (!client || !wallet) return;
-    const jobContract = new JobContract(Address.parse(contract));
+    if (!client || !wallet || !address) return;
+    console.log("init ",address)
+    const jobContract = await new JobContract(Address.parse(address));
+    setIsLoaded(true)
     return client.open(jobContract) as OpenedContract<JobContract>;
-  }, [client, wallet]);
+  }, [client, wallet, address]);
 
   return {
     walletAddress: wallet,
-    contractStatus
+    getContractPrice,
+    getContractStatus,
+    getDeliveryTime,
+    getDeployedTime,
+    getDepositTime,
+    getFunds,
+    getMaxTimeToComplete,
+    getMaxTimeToDeposit,
+    getMaxTimeToReview,
+
+    setAddress,
+    isLoaded,
+    fundingProject
   };
 }

@@ -12,7 +12,9 @@ const Application = ({ application, owner }: any) => {
   // console.log(application);
   const navigation = useNavigate();
 
-  const { createJobLink, deployContract } = createContract(application.userId.wallet, owner.wallet, application.userId.wallet,3n);
+  const [link, setLink] = React.useState('')
+
+  const { createJobLink, deployContract } = createContract(application.userId.wallet, owner.wallet, application.userId.wallet,1n);
   
   const {fundingProject,
     sellerDelivered,
@@ -29,56 +31,59 @@ const Application = ({ application, owner }: any) => {
     getFunds,
     getMaxTimeToComplete,
     getMaxTimeToDeposit,
-    getMaxTimeToReview,} = useJobContractGetters("kQAq_yMMnSvml8HVgxWyRgilkg6okm_YkTEO1HPL74Oe5qSl");
+    getMaxTimeToReview,} = useJobContractGetters();
 
   const handleAcceptButtonClick = async () => {
     // alert('FUCK');
     // smart contract generated
 
-    const {contractAddress, contractLink} = await smartContractHandle();
+    //const {contractAddress, contractLink} = await smartContractHandle();
 
     // const test = await getDepositTime();
     // console.log(test.msg);
     
-    const reqBody = {
-      jobId: application.jobId,
-      buyerId: owner._id,
-      sellerId: application.userId._id,
-      contractAddress: contractAddress,
-      contractLink: contractLink,
-      // userId:
-      applicationId: application._id,
-      seller_wallet: application.userId.wallet,
-      buyer_wallet: owner.wallet,
-      disputeResolver_wallet: 'kQAguT6dSS1u3cciZlCsG5Cn1aVnTT9tVWx-iH2uMnsRy-AP',
-      contract_price: 250,
-    };
-    createContractDB(reqBody, (res: any) => {
-      console.log(res);
-      navigation(`/contract/${res._id}`);
-    });
+    // const reqBody = {
+    //   jobId: application.jobId,
+    //   buyerId: owner._id,
+    //   sellerId: application.userId._id,
+    //   contractAddress: contractAddress,
+    //   contractLink: contractLink,
+    //   // userId:
+    //   applicationId: application._id,
+    //   seller_wallet: application.userId.wallet,
+    //   buyer_wallet: owner.wallet,
+    //   disputeResolver_wallet: 'kQAguT6dSS1u3cciZlCsG5Cn1aVnTT9tVWx-iH2uMnsRy-AP',
+    //   contract_price: 250,
+    // };
+    // createContractDB(reqBody, (res: any) => {
+    //   console.log(res);
+    //   navigation(`/contract/${res._id}`);
+    // });
+    await smartContractHandle();
+    console.log("handle accept!");
   };
 
   const smartContractHandle = async () => {
-    console.log('=====Creating contract======');
-    console.log('Developer:');
-    console.log(application.userId.wallet);
-    console.log(' ');
-    console.log('Client:');
-    console.log(owner.wallet);
-    console.log(' ');
-    console.log(' ');
 
-    const data = await deployContract();
+    const {link, address} = await deployContract();
 
-    console.log(data.address);
-    console.log(data.link);
-    return {contractAddress: data.address, contractLink: data.link};
+    console.log("CONTRACT ADD", address);
+    console.log("CONTRACT LINK", link);
+    setLink(link)
+    setIsPopup(false)
+
+    setIsPopup2(true)
+    // return {contractAddress: data.address, contractLink: data.link};
   };
 
   const [isPopup, setIsPopup] = React.useState(false);
+  const [isPopup2, setIsPopup2] = React.useState(false);
+
   return (
     <>
+      <PopUpContainer isActive={isPopup2} setIsActive={setIsPopup2}>
+        <a href={link} style={{backgroundColor: 'red', fontSize: 20, color: "#fff"}}>Link</a>
+    </PopUpContainer>
       <PopUpContainer isActive={isPopup} setIsActive={setIsPopup}>
         <div className={styles.popup}>
           <div className={styles.row}>

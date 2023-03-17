@@ -4,6 +4,7 @@ import { Job, CreateJob, JobGetters } from '../../components/Job';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import Navbar from '../../components/UI/Navbar';
 import Rating from '../../components/UI/Rating';
+import { useJobContractGetters } from '../../hooks/useJobContract';
 import { getContractById, getContractStatus, setContractStatus } from '../../utils/contract';
 
 const statuses = [
@@ -27,11 +28,31 @@ const Contract = () => {
   const [seller, setSeller] = React.useState<any>({});
   const [isLoading, setIsLoading] = React.useState(true);
 
+  const {getContractStatus, setAddress, isLoaded, fundingProject} = useJobContractGetters()
+
   const [statusCode, setStatusCode] = React.useState(0);
 
-  const getStatus = (id: string) => {
-    getContractStatus(id);
-  };
+  const setJobAddress = () => {
+    console.log(data.contract_address)
+    setAddress("EQCjpMHk8xiIi7YfVEfmEcsSiUrVxOTZ4RZXv8S-AxeVHWbY")
+  }
+
+  React.useEffect(() => {
+    isLoaded && test()
+  }, [isLoaded])
+  
+  const test = async () => {
+    let res = await fundingProject(1)
+    console.log("Res", res)
+  }
+
+
+  React.useEffect( () => {
+    data.contract_address && setJobAddress()
+
+  }, [data.contract_address])
+
+
 
   const setStatus = (status: string) => {
     // TODO: Contract

@@ -539,9 +539,15 @@ export default class JobContract implements Contract {
     }
     
     async getContractPrice(provider: ContractProvider) {
+
+
         let builder = new TupleBuilder();
-        let source = (await provider.get('ContractPrice', builder.build())).stack;
+        // console.log("Prov", provider)
+
+        let source = (await provider.get('ContractPrice', builder.build())).stack
+        console.log("SSS", source)
         let result = source.readBigNumber();
+        // let result = 1n
         return result;
     }
     
