@@ -12,23 +12,39 @@ const Application = ({ application, owner }: any) => {
   // console.log(application);
   const navigation = useNavigate();
 
-  const { createJobLink } = createContract(application.userId.wallet, owner.wallet,application.userId.wallet,3n);
-  const {fundingProject} = useJobContract("EQB3t5dB-DBpP6pFhhKm4jg8Fk3Ru7bqQ38kE9cCQZpvDjSV");
-  const {getDepositTime} = useJobContractGetters("kQAq_yMMnSvml8HVgxWyRgilkg6okm_YkTEO1HPL74Oe5qSl");
+  const { createJobLink, deployContract } = createContract(application.userId.wallet, owner.wallet, application.userId.wallet,3n);
+  
+  const {fundingProject,
+    sellerDelivered,
+    buyerAccept,
+    buyerDispute,
+    disputeResolve,
+    sellerNotDelivered,
+    buyerNotReviewed,} = useJobContract("EQB3t5dB-DBpP6pFhhKm4jg8Fk3Ru7bqQ38kE9cCQZpvDjSV");
+  const {getContractPrice,
+    getContractStatus,
+    getDeliveryTime,
+    getDeployedTime,
+    getDepositTime,
+    getFunds,
+    getMaxTimeToComplete,
+    getMaxTimeToDeposit,
+    getMaxTimeToReview,} = useJobContractGetters("kQAq_yMMnSvml8HVgxWyRgilkg6okm_YkTEO1HPL74Oe5qSl");
 
   const handleAcceptButtonClick = async () => {
     // alert('FUCK');
-    // await smartContractHandle();
-    console.log("CREATE LINK!!");
-    // const data = await createJobLink();
-    // console.log(data.address);
-    const test = await getDepositTime();
-    console.log(test.msg);
+    // smart contract generated
+
+    const contractAddress = await smartContractHandle();
+
+    // const test = await getDepositTime();
+    // console.log(test.msg);
     
     const reqBody = {
       jobId: application.jobId,
       buyerId: owner._id,
       sellerId: application.userId._id,
+      contractAddress: contractAddress,
       // userId:
       applicationId: application._id,
       seller_wallet: application.userId.wallet,
@@ -53,12 +69,15 @@ const Application = ({ application, owner }: any) => {
     console.log(' ');
 
     // TODO: CREATE CONTRACT WITHOUT LINK 
-    
-    const data = await createJobLink();
-    console.log('Data: ');
-    console.log(data);
+    console.log("CREATE LINK!!");
+    // const data = await deployContract();
+    // console.log(data.msg);
+    // console.log(data.address);
+    const data = await deployContract();
+    // const data = await fundingProject(3);
     console.log(data.address);
-    return data;
+    console.log(data.link);
+    return data.address;
   };
 
   const [isPopup, setIsPopup] = React.useState(false);

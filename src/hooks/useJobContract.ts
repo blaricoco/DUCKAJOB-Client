@@ -18,11 +18,11 @@ export function useJobContract(contract: string) {
 
   // Value needs to be passed down
   // Client funds the project
-  const fundingProject = async () => {
+  const fundingProject = async (amount:number) => {
     const result = await jobContract?.send(
       sender,
-      { value: toNano(3) },
-      { $$type: 'Fund_Project', amount: 3n },
+      { value: toNano(amount) },
+      { $$type: 'Fund_Project', amount:  toNano(amount)},
     );
     console.log(result);
 
@@ -102,41 +102,92 @@ export function createContract(developerWallet: string, clientWallet: string,dis
     const { wallet, sender } = useTonConnect();
     const { client } = useTonClient();
 
-    const test = () => {
-        alert('createContract');
-    };
-
     const jobContract = useAsyncInitialize(async () => {
 
         if (!client || !wallet) return;
 
-        let jobContract = await JobContract.fromInit(
+        let contract = await JobContract.fromInit(
             Address.parse(developerWallet),
             Address.parse(clientWallet),
             Address.parse(dispute_resolver),
             contractPrice,
             );
 
-        return client.open(jobContract) as OpenedContract<JobContract>;
+     
+        return client.open(contract) as OpenedContract<JobContract>;
 
         }, [client, wallet]
     );
     
-    const createJobLink = async () => {
+    const deployContract = async () => {
+      
+      let deployAmount = toNano('0.5');
 
-        const result = await jobContract?.send(
-            sender,
-            { value: toNano(1) },
-            { $$type: 'Deploy', queryId: 0n },
-        );
+      let init = await JobContract.init(
+        Address.parse(developerWallet),
+        Address.parse(clientWallet),
+        Address.parse(dispute_resolver),
+        deployAmount,);
+
+      let initStr = base64url(beginCell()
+      .store(storeStateInit(init))
+      .endCell()
+      .toBoc({ idx: false }));
+ 
+      
     
-        return { msg: 'Funded succes', address: jobContract?.address.toString() };
-    };
+      let address = contractAddress(0, init);
+
+      await jobContract?.send(
+          sender,
+          { value: deployAmount },
+          { $$type: 'Deploy', queryId: 0n },
+      );
+
+      return { link: `ton://transfer/` + address.toString({ testOnly: true }) + "?" + qs.stringify({
+        text: 'Deploy',
+        amount: deployAmount.toString(10) ,
+        init: initStr }), address: jobContract?.address.toString() };
+  };
+
+    const createJobLink  = (async () => {
+      // Forming an init package
+
+          let init = await JobContract.init(
+                    Address.parse(developerWallet),
+                    Address.parse(clientWallet),
+                    Address.parse(dispute_resolver),
+                    contractPrice,);
+          let testnet = true;
+          
+          // Contract address
+          let address = contractAddress(0, init);
+          
+          // Amount of TONs to attach to a deploy message
+          let deployAmount = toNano('0.5');
+          
+          // Create string representation of an init package
+          let initStr = base64url(beginCell()
+                  .store(storeStateInit(init))
+                  .endCell()
+                  .toBoc({ idx: false })
+                  );
+     
+          // Create a deploy link
+          return {
+            link: `ton://transfer/` + address.toString({ testOnly: testnet }) + "?" + qs.stringify({
+              text: 'Deploy',
+              amount: deployAmount.toString(10),
+              init: initStr }), 
+            contractAddress: address.toString() };
+
+      });
 
 
   return {
     walletAddress: wallet,
     createJobLink,
+    deployContract,
   };
 }
 
