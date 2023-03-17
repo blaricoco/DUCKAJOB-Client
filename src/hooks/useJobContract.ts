@@ -15,6 +15,10 @@ export function useJobContract(contract: string) {
   const changeStatus = async (status:number) => {
     let result
     switch (status) {
+      case 0:
+        // Status: onGoing 
+        result = await jobContract?.send( sender, { value: await jobContract?.getContractPrice() }, { $$type: 'Fund_Project', amount:  await jobContract?.getContractPrice() });
+        break;
       case 1:
         // Status: Delivered 
         result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerDelivered');
@@ -33,76 +37,16 @@ export function useJobContract(contract: string) {
         // Status: Dispute
         result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerDispute');
       case 6:
-        // Status: Resolved
-        result = await jobContract?.send(sender, { value: toNano(1) }, { $$type: 'Dispute_Resolve', address: Address.parse('contract') } );
+        // Status: Resolved buyer
+        result = await jobContract?.send(sender, { value: toNano(1) }, { $$type: 'Dispute_Resolve', address: await jobContract?.getBuyer()} );
+      case 7:
+        // Status: Resolved seller
+        result = await jobContract?.send(sender, { value: toNano(1) }, { $$type: 'Dispute_Resolve', address: await jobContract?.getSeller()} );
       default:
           break;
     }
-    // const result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerDelivered');
-    // console.log(result);
 
-    // return { msg: 'Funded succes' };
-  };
-
-  // Value needs to be passed down
-  // Client funds the project
-  const fundingProject = async (amount:number) => {
-    const result = await jobContract?.send(
-      sender,
-      { value: toNano(amount) },
-      { $$type: 'Fund_Project', amount:  toNano(amount)},
-    );
-    console.log(result);
-
-    return { msg: 'Funded succes' };
-  };
-
-  // developer ticking project as delivered
-  const sellerDelivered = async () => {
-    const result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerDelivered');
-    console.log(result);
-
-    return { msg: 'Funded succes' };
-  };
-
-  // buyer accept project, project finished
-  const buyerAccept = async () => {
-    const result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerAccept');
-    console.log(result);
-
-    return { msg: 'Funded succes' };
-  };
-
-  // buyer didnt accept, we r waiting for another guy to review
-  const buyerDispute = async () => {
-    const result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerDispute');
-    console.log(result);
-
-    return { msg: 'Funded succes' };
-  };
-
-  // address of winner needs to be passed down
-  const disputeResolve = async () => {
-    const result = await jobContract?.send(sender, { value: toNano(1) },
-      { $$type: 'Dispute_Resolve', address: Address.parse('contract') },
-    );
-    console.log(result);
-
-    return { msg: 'Funded succes' };
-  };
-
-  const sellerNotDelivered = async () => {
-    const result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerNotDelivered');
-    console.log(result);
-
-    return { msg: 'Funded succes' };
-  };
-
-  const buyerNotReviewed = async () => {
-    const result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerNotReviewed');
-    console.log(result);
-
-    return { msg: 'Funded succes' };
+    return result;
   };
 
   const jobContract = useAsyncInitialize(async () => {
@@ -113,13 +57,7 @@ export function useJobContract(contract: string) {
 
   return {
     walletAddress: wallet,
-    fundingProject,
-    sellerDelivered,
-    buyerAccept,
-    buyerDispute,
-    disputeResolve,
-    sellerNotDelivered,
-    buyerNotReviewed,
+    changeStatus
   };
 }
 
@@ -221,69 +159,31 @@ export function useJobContractGetters(contract: string) {
   const { wallet, sender } = useTonConnect();
   const { client } = useTonClient();
 
-  const getContractPrice = async () => {
-    const message = await jobContract?.getContractPrice();
+  const contractStatus = async (status:string) => {
+    let result
+    switch (status) {
+      case "getContractPrice":
+        result = await jobContract?.getContractPrice();
+      case "getContractStatus":
+        result = await jobContract?.getContractStatus();
+      case "getContractStatus":
+        result = await jobContract?.getDeliveryTime();
+      case "getContractStatus":
+        result = await jobContract?.getDepositTime();
+      case "getContractStatus":
+        result = await jobContract?.getFunds();
+      case "getContractStatus":
+        result = await jobContract?.getMaxTimeToComplete();
+      case "getContractStatus":
+        result = await jobContract?.getMaxTimeToDeposit();
+      case "getContractStatus":
+        result = await jobContract?.getMaxTimeToReview();
+      default:
+          break;
+    }
 
-    console.log(message);
-
-    return { msg: message };
-  };
-
-  const getContractStatus = async () => {
-    const message = await jobContract?.getContractStatus();
-    console.log(message);
-
-    return { msg: message };
-  };
-
-  const getDeliveryTime = async () => {
-    const message = await jobContract?.getDeliveryTime();
-    console.log(message);
-
-    return { msg: message };
-  };
-
-  const getDeployedTime = async () => {
-    const message = await jobContract?.getDeployedTime();
-    console.log(message);
-
-    return { msg: message };
-  };
-
-  const getDepositTime = async () => {
-    const message = await jobContract?.getDepositTime();
-    console.log(message);
-
-    return { msg: message };
-  };
-
-  const getFunds = async () => {
-    const message = await jobContract?.getFunds();
-    console.log(message);
-
-    return { msg: message };
-  };
-
-  const getMaxTimeToComplete = async () => {
-    const message = await jobContract?.getMaxTimeToComplete();
-    console.log(message);
-
-    return { msg: message };
-  };
-
-  const getMaxTimeToDeposit = async () => {
-    const message = await jobContract?.getMaxTimeToDeposit();
-    console.log(message);
-
-    return { msg: message };
-  };
-
-  const getMaxTimeToReview = async () => {
-    const message = await jobContract?.getMaxTimeToReview();
-    console.log(message);
-
-    return { msg: message };
-  };
+    return result;
+  }
 
   const jobContract = useAsyncInitialize(async () => {
     if (!client || !wallet) return;
@@ -293,14 +193,6 @@ export function useJobContractGetters(contract: string) {
 
   return {
     walletAddress: wallet,
-    getContractPrice,
-    getContractStatus,
-    getDeliveryTime,
-    getDeployedTime,
-    getDepositTime,
-    getFunds,
-    getMaxTimeToComplete,
-    getMaxTimeToDeposit,
-    getMaxTimeToReview,
+    contractStatus
   };
 }
