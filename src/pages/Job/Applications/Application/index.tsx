@@ -45,6 +45,7 @@ const Application = ({ application, owner }: any) => {
       buyerId: owner._id,
       sellerId: application.userId._id,
       contractAddress: contractAddress,
+      contractLink: contractLink,
       // userId:
       applicationId: application._id,
       seller_wallet: application.userId.wallet,
