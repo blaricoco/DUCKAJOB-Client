@@ -20,10 +20,7 @@ const MobileSignUp = () => {
   }, [tonConnectUI.connected]);
 
   const handleAuth = (wallet: string) => {
-    alert('Started auth');
     authUser(wallet, (res) => {
-      // console.log(res);
-      alert(JSON.stringify(res));
       router(res.redirectUrl);
     });
   };
