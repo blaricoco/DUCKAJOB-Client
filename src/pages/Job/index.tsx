@@ -26,6 +26,7 @@ const TagItem: React.FC<TagItemProps> = ({ tag }) => (
 const Job = () => {
   const { id } = useParams();
   const { user } = React.useContext(AuthContext);
+  console.log('USER', user);
 
   const [data, setData] = React.useState<any>({});
   const [applications, setApplications] = React.useState<any[]>();
@@ -60,7 +61,6 @@ const Job = () => {
               <div className={styles.priceCon}>
                 <p className={styles.priceTxt}>${data?.budget}</p>
               </div>
-
             </div>
             <div className={styles.body}>
               <h3 className={styles.title}>{data?.title}</h3>
@@ -76,15 +76,34 @@ const Job = () => {
               ))}
             </div>
             {/* check if its my job */}
-            {data.owner ? (
-              data.owner._id === user._id ? (
-                <Applications applications={applications} owner={data?.owner} />
+
+            {user._id ? (
+              data.owner ? (
+                data.owner._id === user._id ? (
+                  <Applications applications={applications} owner={data?.owner} />
+                ) : (
+                  <ApplyButton data={{ jobId: id, userId: user._id }} />
+                )
               ) : (
-                <ApplyButton data={{ jobId: id, userId: user._id }} />
+                <h2>Loading</h2>
               )
             ) : (
-              <h2>Loading</h2>
+              <></>
             )}
+
+            {/* {user ? (
+              data.owner ? (
+                data.owner._id === user._id ? (
+                  <Applications applications={applications} owner={data?.owner} />
+                ) : (
+                  <ApplyButton data={{ jobId: id, userId: user._id }} />
+                )
+              ) : (
+                <h2>Loading</h2>
+              )
+            ) : (
+              <></>
+            )} */}
           </div>
         </div>
       )}
