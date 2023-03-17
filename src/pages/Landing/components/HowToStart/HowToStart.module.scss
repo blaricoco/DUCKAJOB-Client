@@ -1,0 +1,49 @@
+.wrapper {
+  padding: 100px 0 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  h2 {
+    font-size: 40px;
+  }
+
+  .row {
+    margin-top: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 800px;
+
+    .el {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      h3 {
+        font-size: 24px;
+      }
+      .circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 100%;
+        background-color: #0088cc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 16px;
+        img {
+          height: 50px;
+          width: 50px;
+        }
+      }
+      &:nth-of-type(1) {
+        img {
+          height: 90px;
+          width: 90px;
+        }
+      }
+    }
+  }
+}
