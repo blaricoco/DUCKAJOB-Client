@@ -11,8 +11,6 @@ import ApplyButton from './ApplyButton';
 
 import styles from './Job.module.scss';
 
-const tags = ['Func', 'Very fun c', 'React', 'Nest.js', 'Typescript', 'Java'];
-
 interface TagItemProps {
   tag: any;
 }
@@ -56,7 +54,7 @@ const Job = () => {
                 <Link to={`/user/${data.owner?._id}`}>
                   <span>{data.owner?.username}</span>
                 </Link>
-                <img src="/icons/circle.svg" /> 2hr ago
+                <img src="/icons/circle.svg" /> {formatDate(new Date(data.createdAt))}
               </p>
               <div className={styles.priceCon}>
                 <p className={styles.priceTxt}>${data?.budget}</p>
