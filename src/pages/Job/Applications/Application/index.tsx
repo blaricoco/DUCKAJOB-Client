@@ -35,7 +35,7 @@ const Application = ({ application, owner }: any) => {
     // alert('FUCK');
     // smart contract generated
 
-    const contractAddress = await smartContractHandle();
+    const {contractAddress, contractLink} = await smartContractHandle();
 
     // const test = await getDepositTime();
     // console.log(test.msg);
