@@ -15,8 +15,10 @@ const Unfunded = ({ buyerId, sellerId, setStatus }: any) => {
               Fund
             </div>
           </div>
-          <div onClick={() => setStatus(4)} className={styles.secondaryBtn}>
-            Cancel
+          <div className={styles.row}>
+            <div onClick={() => setStatus(4)} className={styles.secondaryBtn}>
+              Cancel
+            </div>
           </div>
         </>
       ) : // if user is developer

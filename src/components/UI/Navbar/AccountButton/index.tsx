@@ -53,7 +53,7 @@ function AccountButton() {
               <Menu.Item>create a job</Menu.Item>
             </Link>
 
-            <Menu.Item>archive</Menu.Item>
+            {/* <Menu.Item>archive</Menu.Item> */}
 
             <Menu.Divider />
             <Menu.Item onClick={() => tonConnectUI.disconnect()} color="red">
