@@ -68,16 +68,11 @@ const Application = ({ application, owner }: any) => {
     console.log(' ');
     console.log(' ');
 
-    // TODO: CREATE CONTRACT WITHOUT LINK 
-    console.log("CREATE LINK!!");
-    // const data = await deployContract();
-    // console.log(data.msg);
-    // console.log(data.address);
     const data = await deployContract();
-    // const data = await fundingProject(3);
+
     console.log(data.address);
     console.log(data.link);
-    return data.address;
+    return {contractAddress: data.address, contractLink: data.link};
   };
 
   const [isPopup, setIsPopup] = React.useState(false);
