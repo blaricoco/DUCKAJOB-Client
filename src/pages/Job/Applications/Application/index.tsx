@@ -37,28 +37,28 @@ const Application = ({ application, owner }: any) => {
     // alert('FUCK');
     // smart contract generated
 
-    //const {contractAddress, contractLink} = await smartContractHandle();
+    const {contractAddress, contractLink} = await smartContractHandle();
 
     // const test = await getDepositTime();
     // console.log(test.msg);
     
-    // const reqBody = {
-    //   jobId: application.jobId,
-    //   buyerId: owner._id,
-    //   sellerId: application.userId._id,
-    //   contractAddress: contractAddress,
-    //   contractLink: contractLink,
-    //   // userId:
-    //   applicationId: application._id,
-    //   seller_wallet: application.userId.wallet,
-    //   buyer_wallet: owner.wallet,
-    //   disputeResolver_wallet: 'kQAguT6dSS1u3cciZlCsG5Cn1aVnTT9tVWx-iH2uMnsRy-AP',
-    //   contract_price: 250,
-    // };
-    // createContractDB(reqBody, (res: any) => {
-    //   console.log(res);
-    //   navigation(`/contract/${res._id}`);
-    // });
+    const reqBody = {
+      jobId: application.jobId,
+      buyerId: owner._id,
+      sellerId: application.userId._id,
+      contractAddress: contractAddress,
+      contractLink: contractLink,
+      // userId:
+      applicationId: application._id,
+      seller_wallet: application.userId.wallet,
+      buyer_wallet: owner.wallet,
+      disputeResolver_wallet: 'kQAguT6dSS1u3cciZlCsG5Cn1aVnTT9tVWx-iH2uMnsRy-AP',
+      contract_price: 250,
+    };
+    createContractDB(reqBody, (res: any) => {
+      console.log(res);
+      navigation(`/contract/${res._id}`);
+    });
     await smartContractHandle();
     console.log("handle accept!");
   };
@@ -73,7 +73,7 @@ const Application = ({ application, owner }: any) => {
     setIsPopup(false)
 
     setIsPopup2(true)
-    // return {contractAddress: data.address, contractLink: data.link};
+    return {contractAddress: address, contractLink: link};
   };
 
   const [isPopup, setIsPopup] = React.useState(false);
