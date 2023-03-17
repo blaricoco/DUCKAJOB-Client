@@ -9,8 +9,10 @@ const Funded = ({ buyerId, sellerId, setStatus }: any) => {
   return (
     <div className={styles.wrapper}>
       {user._id === buyerId ? (
-        <div onClick={() => setStatus(4)} className={styles.secondaryBtn}>
-          Cancel
+        <div className={styles.row}>
+          <div onClick={() => setStatus(4)} className={styles.secondaryBtn}>
+            Cancel
+          </div>
         </div>
       ) : user._id === sellerId ? (
         <>

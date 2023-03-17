@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './ContractController.module.scss';
+import Delivered from './States/Delivered';
 import Funded from './States/Funded';
 import Unfunded from './States/Unfunded';
 
@@ -12,6 +13,8 @@ const ContractController = ({ statusCode, setStatus, buyerId, sellerId }: any) =
           <Unfunded buyerId={buyerId} sellerId={sellerId} setStatus={setStatus} />
         ) : statusCode === 1 ? (
           <Funded buyerId={buyerId} sellerId={sellerId} setStatus={setStatus} />
+        ) : statusCode === 2 ? (
+          <Delivered buyerId={buyerId} sellerId={sellerId} setStatus={setStatus} />
         ) : (
           <h1>123</h1>
         )}
