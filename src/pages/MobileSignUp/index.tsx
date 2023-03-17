@@ -28,6 +28,7 @@ const MobileSignUp = () => {
       <h2>Welcome.</h2>
       <p>Connect wallet to start using the app {'(some text here)'}</p>
       <Button onClick={() => tonConnectUI.connectWallet()}>Connect wallet</Button>
+      {tonConnectUI.wallet && tonConnectUI.wallet.account.address}
     </div>
   );
 };

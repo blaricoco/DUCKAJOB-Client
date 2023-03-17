@@ -7,6 +7,7 @@ import Rating from '../../components/UI/Rating';
 import { getContractById } from '../../utils/contract';
 
 import styles from './Contract.module.scss';
+import ContractController from './ContractController';
 //import Job from '';
 const Contract = () => {
   const { id } = useParams();
@@ -35,7 +36,6 @@ const Contract = () => {
       });
   }, [id]);
 
-  
   // TODO: DISPLAY CONTRACT
   // TODO: CREATE BUTTONS WITH CONTRACT FUNCTIONALITY
   return (
@@ -89,6 +89,7 @@ const Contract = () => {
               </div>
             </div>
           </div>
+          <ContractController />
 
           <h2 style={{ marginTop: 30 }}>Developing:</h2>
           {/* <CreateJob /> */}
