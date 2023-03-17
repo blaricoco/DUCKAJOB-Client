@@ -4,7 +4,17 @@ import { Job, CreateJob, JobGetters } from '../../components/Job';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import Navbar from '../../components/UI/Navbar';
 import Rating from '../../components/UI/Rating';
-import { getContractById } from '../../utils/contract';
+import { getContractById, getContractStatus, setContractStatus } from '../../utils/contract';
+
+const statuses = [
+  'Unfunded',
+  'Ongoing',
+  'Delivered',
+  'Accepted',
+  'Cancelled',
+  'Dispute',
+  'Resolved',
+];
 
 import styles from './Contract.module.scss';
 import ContractController from './ContractController';
@@ -17,21 +27,36 @@ const Contract = () => {
   const [seller, setSeller] = React.useState<any>({});
   const [isLoading, setIsLoading] = React.useState(true);
 
+  const [statusCode, setStatusCode] = React.useState(0);
+
+  const getStatus = (id: string) => {
+    getContractStatus(id);
+  };
+
+  const setStatus = (status: string) => {
+    // TODO: Contract
+    // SUCCESS
+    id && setContractStatus(id, status, (res) => setStatusCode(res.status));
+    // ERR return
+  };
+
   React.useEffect(() => {
     id &&
       getContractById(id, (res) => {
         const { buyer, seller, job, ...rest } = res;
-        console.log('Buyer', buyer);
+        // console.log('Buyer', buyer);
         setBuyer(buyer);
-        console.log(' ');
+        // console.log(' ');
         // console.log('Seller', seller);
         setSeller(seller);
-        console.log(' ');
+        // console.log(' ');
         // console.log('Job', job);
         setJob(job);
-        console.log(' ');
-        // console.log('Rest', rest);
-        console.log(' ');
+        // console.log(' ');
+        setData(rest);
+        // console.log('Rest', rest.contract_status);
+        setStatusCode(rest.contract_status);
+        // console.log(' ');
         setIsLoading(false);
       });
   }, [id]);
@@ -63,7 +88,7 @@ const Contract = () => {
                   </div>
                   <div className={styles.statsEl}>
                     <p className={styles.statTitle}>Status</p>
-                    <p className={styles.statValue}>Ongoing</p>
+                    <p className={styles.statValue}>{statuses[statusCode]}</p>
                   </div>
                   <div className={styles.statsEl}>
                     <p className={styles.statTitle}>Deadline</p>
@@ -89,12 +114,17 @@ const Contract = () => {
               </div>
             </div>
           </div>
-          <ContractController />
+          <ContractController
+            setStatus={setStatus}
+            buyerId={buyer._id}
+            sellerId={seller._id}
+            statusCode={statusCode}
+          />
 
-          <h2 style={{ marginTop: 30 }}>Developing:</h2>
+          {/* <h2 style={{ marginTop: 30 }}>Developing:</h2> */}
           {/* <CreateJob /> */}
           {/* <JobGetters /> */}
-          <Job contract="EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH" />
+          {/* <Job contract="EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH" /> */}
         </>
       )}
     </>
