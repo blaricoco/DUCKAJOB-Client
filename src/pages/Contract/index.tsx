@@ -37,6 +37,7 @@ const Contract = () => {
     // TODO: Contract
     // SUCCESS
     id && setContractStatus(id, status, (res) => setStatusCode(res.status));
+    
     // ERR return
   };
 

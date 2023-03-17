@@ -12,8 +12,36 @@ export function useJobContract(contract: string) {
   const { wallet, sender } = useTonConnect();
   const { client } = useTonClient();
 
-  const test = () => {
-    alert('useJobContract');
+  const changeStatus = async (status:number) => {
+    let result
+    switch (status) {
+      case 1:
+        // Status: Delivered 
+        result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerDelivered');
+        break;
+      case 2:
+        // Status: Accepted
+        result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerAccept');
+        break;
+      case 3:
+        // Status: NotDelivered
+        result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerNotDelivered');
+      case 4:
+        // Status: NotReviewed
+        result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerNotReviewed');
+      case 5:
+        // Status: Dispute
+        result = await jobContract?.send(sender, { value: toNano(1) }, 'buyerDispute');
+      case 6:
+        // Status: Resolved
+        result = await jobContract?.send(sender, { value: toNano(1) }, { $$type: 'Dispute_Resolve', address: Address.parse('contract') } );
+      default:
+          break;
+    }
+    // const result = await jobContract?.send(sender, { value: toNano(1) }, 'sellerDelivered');
+    // console.log(result);
+
+    // return { msg: 'Funded succes' };
   };
 
   // Value needs to be passed down
@@ -55,9 +83,7 @@ export function useJobContract(contract: string) {
 
   // address of winner needs to be passed down
   const disputeResolve = async () => {
-    const result = await jobContract?.send(
-      sender,
-      { value: toNano(1) },
+    const result = await jobContract?.send(sender, { value: toNano(1) },
       { $$type: 'Dispute_Resolve', address: Address.parse('contract') },
     );
     console.log(result);
