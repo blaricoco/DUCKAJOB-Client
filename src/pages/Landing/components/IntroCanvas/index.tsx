@@ -13,6 +13,7 @@ const IntroCanvas = ({ mousePosition }: any) => {
         <OrbitControls enableZoom={false} enableRotate={false} />
         {/* <OrbitControls /> */}
 
+        {/*  */}
         <ambientLight intensity={0.5} />
         <spotLight position={[10, 15, 10]} angle={0.3} />
         <React.Suspense fallback={null}>
