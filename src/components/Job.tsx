@@ -22,7 +22,7 @@ export function Job({ contract }: any) {
         <Button
           disabled={!connected}
           onClick={async () => {
-            fundingProject();
+          
           }}>
           Job Contract
         </Button>
@@ -50,8 +50,7 @@ export function CreateJob() {
         <Button
           disabled={!connected}
           onClick={async () => {
-            createJobLink(
-            );
+            createJobLink( );
           }}>
           Job Contract
         </Button>
@@ -63,7 +62,7 @@ export function CreateJob() {
 export function JobGetters() {
   const { connected } = useTonConnect();
   const { walletAddress, getContractStatus, getDeliveryTime, getDeployedTime } =
-    useJobContractGetters('EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH');
+    useJobContractGetters();
 
   return (
     <Card title="Job">
