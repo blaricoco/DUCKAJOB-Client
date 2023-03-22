@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, useNavigate, useNavigation } from 'react-router-dom';
-import { Address } from 'ton-core';
+import { Address, toNano } from 'ton-core';
 import PopUpContainer from '../../../../components/UI/PopUpContainer';
 import Rating from '../../../../components/UI/Rating';
-import { createContract,useJobContract, useJobContractGetters  } from '../../../../hooks/useJobContract';
+import { useDuckAJob  } from '../../../../hooks/useJobContract';
 import { createContractDB } from '../../../../utils/contract';
 
 import styles from './Application.module.scss';
@@ -14,24 +14,21 @@ const Application = ({ application, owner }: any) => {
 
   const [link, setLink] = React.useState('')
 
-  const { createJobLink, deployContract } = createContract(application.userId.wallet, owner.wallet, application.userId.wallet,1n);
+  // const { createJobLink, deployContract } = createContract(application.userId.wallet, owner.wallet, application.userId.wallet,1n);
   
-  const {fundingProject,
-    sellerDelivered,
+  
+  const { 
+    contractDetails, 
+    address, 
+    sendDeployMessage, 
+    updateStatus, 
+    fundProject, 
+    sellerDelivered, 
     buyerAccept,
-    buyerDispute,
     disputeResolve,
     sellerNotDelivered,
-    buyerNotReviewed,} = useJobContract("EQB3t5dB-DBpP6pFhhKm4jg8Fk3Ru7bqQ38kE9cCQZpvDjSV");
-  const {getContractPrice,
-    getContractStatus,
-    getDeliveryTime,
-    getDeployedTime,
-    getDepositTime,
-    getFunds,
-    getMaxTimeToComplete,
-    getMaxTimeToDeposit,
-    getMaxTimeToReview,} = useJobContractGetters();
+    buyerNotReviewed,
+    deploy } = useDuckAJob('');
 
   const handleAcceptButtonClick = async () => {
     // alert('FUCK');
@@ -65,7 +62,7 @@ const Application = ({ application, owner }: any) => {
 
   const smartContractHandle = async () => {
 
-    const {link, address} = await deployContract();
+    const {link, address} = await deploy(application.userId.wallet, toNano("0.2"));
 
     console.log("CONTRACT ADD", address);
     console.log("CONTRACT LINK", link);

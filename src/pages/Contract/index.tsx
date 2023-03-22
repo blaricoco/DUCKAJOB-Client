@@ -4,8 +4,9 @@ import { Job, CreateJob, JobGetters } from '../../components/Job';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import Navbar from '../../components/UI/Navbar';
 import Rating from '../../components/UI/Rating';
-import { useJobContractGetters } from '../../hooks/useJobContract';
+import { useDuckAJob } from "../../hooks/useJobContract";
 import { getContractById, getContractStatus, setContractStatus } from '../../utils/contract';
+import StatusParser from '../../utils/contract/statusParser';
 
 const statuses = [
   'Unfunded',
@@ -28,27 +29,26 @@ const Contract = () => {
   const [seller, setSeller] = React.useState<any>({});
   const [isLoading, setIsLoading] = React.useState(true);
 
-  const {getContractStatus, setAddress, isLoaded, fundingProject} = useJobContractGetters()
+ const { 
+    contractDetails, 
+    address, 
+    sendDeployMessage, 
+    updateStatus, 
+    fundProject, 
+    sellerDelivered, 
+    buyerAccept,
+    disputeResolve,
+    sellerNotDelivered,
+    buyerNotReviewed } = useDuckAJob(data.contract_address);
+
 
   const [statusCode, setStatusCode] = React.useState(0);
 
-  const setJobAddress = () => {
-    console.log(data.contract_address)
-    setAddress("EQCjpMHk8xiIi7YfVEfmEcsSiUrVxOTZ4RZXv8S-AxeVHWbY")
-  }
-
-  React.useEffect(() => {
-    isLoaded && test()
-  }, [isLoaded])
-  
-  const test = async () => {
-    let res = await fundingProject(1)
-    console.log("Res", res)
-  }
-
+  // var test = Number(contractDetails?.status!);
+  // console.log(test);
 
   React.useEffect( () => {
-    data.contract_address && setJobAddress()
+    data.contract_address 
 
   }, [data.contract_address])
 
@@ -104,17 +104,21 @@ const Contract = () => {
                 <h3 className={styles.title}>{job?.title}</h3>
                 <p className={styles.description}>{job?.description}</p>
                 <div className={styles.stats}>
+                <div className={styles.statsEl}>
+                    <p className={styles.statTitle}>Cost</p>
+                    <p className={styles.statValue}>{contractDetails?.price}</p>
+                  </div>
                   <div className={styles.statsEl}>
                     <p className={styles.statTitle}>Budget</p>
-                    <p className={styles.statValue}>$300</p>
+                    <p className={styles.statValue}>{contractDetails?.funds}</p>
                   </div>
                   <div className={styles.statsEl}>
                     <p className={styles.statTitle}>Status</p>
-                    <p className={styles.statValue}>{statuses[statusCode]}</p>
+                    <p className={styles.statValue}>{StatusParser(contractDetails?.status!)}</p>
                   </div>
                   <div className={styles.statsEl}>
                     <p className={styles.statTitle}>Deadline</p>
-                    <p className={styles.statValue}>12 Mar</p>
+                    <p className={styles.statValue}>{contractDetails?.maxTimeToComplete}</p>
                   </div>
                 </div>
               </div>
@@ -142,11 +146,6 @@ const Contract = () => {
             sellerId={seller._id}
             statusCode={statusCode}
           />
-
-          {/* <h2 style={{ marginTop: 30 }}>Developing:</h2> */}
-          {/* <CreateJob /> */}
-          {/* <JobGetters /> */}
-          {/* <Job contract="EQBODpOBGqdJEIN0wmZnKYxG_dx855ynKhCyy6twXX5ODzYH" /> */}
         </>
       )}
     </>
