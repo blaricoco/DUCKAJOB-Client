@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { toNano } from 'ton-core';
 import { Job, CreateJob, JobGetters } from '../../components/Job';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import Navbar from '../../components/UI/Navbar';
@@ -49,17 +50,21 @@ const Contract = () => {
 
   React.useEffect( () => {
     data.contract_address 
+    
 
   }, [data.contract_address])
 
 
 
   const setStatus = (status: string) => {
-    // TODO: Contract
     // SUCCESS
+    
+    // TODO: UPDATE TO ONLY TRIGER WHEN FUNDING 
+    fundProject(toNano("0.2"));
+
     id && setContractStatus(id, status, (res) => setStatusCode(res.status));
     
-    // ERR return
+ 
   };
 
   React.useEffect(() => {
@@ -114,7 +119,8 @@ const Contract = () => {
                   </div>
                   <div className={styles.statsEl}>
                     <p className={styles.statTitle}>Status</p>
-                    <p className={styles.statValue}>{StatusParser(contractDetails?.status!)}</p>
+                    <p className={styles.statValue}>{contractDetails?.status!}</p>
+                    {/* <p className={styles.statValue}>{StatusParser(contractDetails?.status!)}</p> */}
                   </div>
                   <div className={styles.statsEl}>
                     <p className={styles.statTitle}>Deadline</p>

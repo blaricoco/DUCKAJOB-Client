@@ -62,6 +62,7 @@ const Application = ({ application, owner }: any) => {
 
   const smartContractHandle = async () => {
 
+    // TODO: UPDATE TO TAKE VALUE INPUT - DEFAULT 0.2
     const {link, address} = await deploy(application.userId.wallet, toNano("0.2"));
 
     console.log("CONTRACT ADD", address);

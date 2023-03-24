@@ -11,7 +11,8 @@ const Unfunded = ({ buyerId, sellerId, setStatus }: any) => {
       {user._id === buyerId ? (
         <>
           <div className={styles.row}>
-            <div className={styles.primaryBtn} onClick={() => setStatus(1)}>
+            {/* TODO: UPDATE TO CALL - fundProject */}
+            <div className={styles.primaryBtn} onClick={() => setStatus(1) }>
               Fund
             </div>
           </div>

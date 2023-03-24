@@ -18,7 +18,8 @@ const Contracts = () => {
     <div className={styles.wrapper}>
       {data.length > 0 ? (
         data?.map((el: any, index: number) => {
-          // console.log(el);
+          console.log("CONTRACT")
+          console.log(el);
           return <ContractItem contract={el} jobId={el.job._id} key={index} />;
         })
       ) : (

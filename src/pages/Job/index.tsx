@@ -79,6 +79,7 @@ const Job = () => {
               data.owner ? (
                 data.owner._id === user._id ? (
                   <Applications applications={applications} owner={data?.owner} />
+                  // <ApplyButton data={{ jobId: id, userId: user._id }} />
                 ) : (
                   <ApplyButton data={{ jobId: id, userId: user._id }} />
                 )

@@ -142,7 +142,9 @@ export function useDuckAJob(contractAddressString: string) {
         init: initStr
       });
 
-      return {link: link, address: address};
+      console.log(address.toString());
+
+      return {link: link, address: address.toString()};
     }
   };
 }
