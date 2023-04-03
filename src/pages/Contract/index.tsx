@@ -64,7 +64,6 @@ const Contract = () => {
 
     id && setContractStatus(id, status, (res) => setStatusCode(res.status));
     
- 
   };
 
   React.useEffect(() => {
@@ -83,6 +82,11 @@ const Contract = () => {
         setData(rest);
         // console.log('Rest', rest.contract_status);
         setStatusCode(rest.contract_status);
+        console.log("CONTROLLER");
+        console.log(rest.contract_status);
+        console.log(contractDetails?.status!);
+        //contractDetails?.status!
+
         // console.log(' ');
         setIsLoading(false);
       });

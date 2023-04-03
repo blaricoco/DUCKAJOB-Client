@@ -89,7 +89,7 @@ export function useDuckAJob(contractAddressString: string) {
     fundProject: (funds: bigint) => {
       return jobContract?.send(
         sender,
-        { value: toNano("0.02") },
+        { value: toNano(funds) },
         { $$type: "Fund_Project", amount: funds }
       );
     },
